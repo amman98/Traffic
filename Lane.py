@@ -5,7 +5,7 @@ Created on Thu Mar  5 11:40:13 2020
 @author: esher
 """
 
-class NLane(object):
+class Lane(object):
    
     def __init__(self,x=7, y=4,lLane,rLane,ftLane):
         self.x=x
@@ -42,6 +42,7 @@ class NLane(object):
     
     def goStraight(self,car):
         car.x=car.x+2
+        
         
         
         

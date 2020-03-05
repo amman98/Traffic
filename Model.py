@@ -38,7 +38,7 @@ class Model(object):
     Also decides which lanes are to the front, left, right
     and adjacent to each lane.
     """
-    def init(self):
+    def __init__(self):
       return None
       
     """

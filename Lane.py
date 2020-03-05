@@ -18,41 +18,109 @@ class Lane(object):
         #lane to the front
         self.sLane=fLane
         # type of lane 
-        self.ltype=direction
+        self.direction=direction
+    """
+    this method sets the length of the green and red light
     
     
+    
+    """
+    def setLight(self,gLight,rLight,yLight):
+        self.gLight=gLight
+        self.rLight=rLight
+        self.yLight=yLight
+        #light countdown
+        self.c_downG=gLight
+        self.c_downR=rLight
         
-        
+     #adding car to the list of cars in the lane   
     def addCar(self,car):
         self.carList.append(car)
-    
-    def removeCar(self, car):
-        
+    #method to remove car after it leaves the lane
+    def removeCar(self, car):  
         self.carList.remove(car)
+        
+        
+    """
+    this method moves the car right, the way it does it will depend on the 
+    direction of the lane
     
+    """
     def turnRight(self, car):
-        car.x=car.x+1
-        car.y=car.y+2
-        rLane.addCar(car)
+       
+        if(self.direction=="North"):
+            car.y=car.y+1
+            car.x=car.x+1
+        elif(self.direction=="South"):
+            car.y=car.y-1
+            car.x=car.x-1
+            
+        elif(self.direction=="East"):
+            car.x=car.x+1
+            car.y=car.y-1
+        else :
+            car.x=car.x-1
+            car.y=car.y+1
+            
+            
+        self.rLane.addCar(car)
         self.removeCar(car)
+        
+    """
+    this method moves the car left, the way it does it will depend on the 
+    direction of the lane
+    
+    """   
     
     def turnLeft(self,car):
-        car.x=car.x-2
-        car.y=car.y-2
-        lLane.addCar(car)
+        
+        if(self.direction=="North"):
+            car.y=car.y+2
+            car.x=car.x-1
+        elif(self.direction=="South"):
+            car.y=car.y-2
+            car.x=car.x+1
+            
+        elif(self.direction=="East"):
+            car.x=car.x+2
+            car.y=car.y+1
+        else :
+            car.x=car.x-2
+            car.y=car.y-1
+        
+        self.lLane.addCar(car)
         self.removeCar(car)
     
+        
+    # continues to go straight on its lane
     def goStraight(self,car):
-        if(self.direction=="North")
-        car.x=car.x+2
-        
-        
-        
-        
+        if(self.direction=="North"):
+            car.y=car.y+1
+        elif(self.direction=="South"):
+            car.y=car.y-1
+        elif(self.direction=="East"):
+            car.x=car.x+1
+        else :
+            car.x=car.x-1
+    """
+    at each time step a car in the front will leave the lane
+    and cars behind it will move one cell closer to the intersection
+    
+    """        
+    def nextMove(self):
+        if(self.c_downG>=0):
+            c_downR=c_downR-1
+        else:
+            self.moveCar(self.carList[0])
+            for i in self.carList:
+                self.goStraight(i)
+    """
+    this method call a turn based on the direction the car 
+    wants to go, its assumed that the car is first in the lane 
+
+    """    
         
     def moveCar(self, car):
-        if (light="red"):
-            pass
         if(car.car_move=="right"):
             self.turnRight(car)
         elif( car.move=="left"):
@@ -60,11 +128,8 @@ class Lane(object):
         else:
             self.goStraight(car)
             
-        #returns false if 
-        bool False
+        
         
         
     #cars that reach boundary 
-        
-        
         

@@ -19,7 +19,7 @@ class Car(object):
     location: 1D array of size 2 to 
     represent the coordinates of the car.
     """
-    def init(self, lane, location):
+    def __init__(self, lane, location):
        self.environ = lane
        self.loc_in_environ = location
     

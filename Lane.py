@@ -121,9 +121,9 @@ class Lane(object):
     """    
         
     def moveCar(self, car):
-        if(car.car_move=="right"):
+        if(car.car_move=="RIGHT"):
             self.turnRight(car)
-        elif( car.move=="left"):
+        elif( car.move=="LEFT"):
             self.turnLeft(car)
         else:
             self.goStraight(car)

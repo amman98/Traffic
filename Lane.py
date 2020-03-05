@@ -7,7 +7,7 @@ Created on Thu Mar  5 11:40:13 2020
 
 class Lane(object):
    
-    def __init__(self,x=7, y=4,lLane,rLane,ftLane):
+    def __init__(self,x=7, y=4,lLane,rLane,ftLane,direction):
         self.x=x
         self.y=y
         self.carList=[]
@@ -17,6 +17,8 @@ class Lane(object):
         self.rLane=rLane
         #lane to the front
         self.sLane=fLane
+        # type of lane 
+        self.ltype=direction
     
     
         
@@ -41,6 +43,7 @@ class Lane(object):
         self.removeCar(car)
     
     def goStraight(self,car):
+        if(self.direction=="North")
         car.x=car.x+2
         
         

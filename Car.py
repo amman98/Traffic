@@ -2,9 +2,6 @@ import numpy as np
 import random
 
 class Car(object):
-    loc_in_environ = np.array((0,0))
-    environ = None
-    car_turn = None
     
     """
     Pre: Have attributes loc_in_environ

@@ -49,18 +49,17 @@ class Lane(object):
     def turnRight(self, car):
        
         if(self.direction=="North"):
-            car.y=car.y+1
-            car.x=car.x+1
+            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
         elif(self.direction=="South"):
-            car.y=car.y-1
-            car.x=car.x-1
-            
+            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] - 1   
         elif(self.direction=="East"):
-            car.x=car.x+1
-            car.y=car.y-1
+            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] - 1     
         else :
-            car.x=car.x-1
-            car.y=car.y+1
+            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
             
             
         self.rLane.addCar(car)
@@ -75,18 +74,17 @@ class Lane(object):
     def turnLeft(self,car):
         
         if(self.direction=="North"):
-            car.y=car.y+2
-            car.x=car.x-1
+            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] - 1
         elif(self.direction=="South"):
-            car.y=car.y-2
-            car.x=car.x+1
-            
+            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] + 1   
         elif(self.direction=="East"):
-            car.x=car.x+2
-            car.y=car.y+1
+            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] - 1     
         else :
-            car.x=car.x-2
-            car.y=car.y-1
+            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
+            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
         
         self.lLane.addCar(car)
         self.removeCar(car)
@@ -95,13 +93,13 @@ class Lane(object):
     # continues to go straight on its lane
     def goStraight(self,car):
         if(self.direction=="North"):
-            car.y=car.y+1
+            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
         elif(self.direction=="South"):
-            car.y=car.y-1
+            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
         elif(self.direction=="East"):
-            car.x=car.x+1
+            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
         else :
-            car.x=car.x-1
+            car.loc_in_environ[1] = car.loc_in_environ[1] - 1
     """
     at each time step a car in the front will leave the lane
     and cars behind it will move one cell closer to the intersection
@@ -121,9 +119,9 @@ class Lane(object):
     """    
         
     def moveCar(self, car):
-        if(car.car_move=="RIGHT"):
+        if(car.car_turn == 'RIGHT'):
             self.turnRight(car)
-        elif( car.move=="LEFT"):
+        elif(car.turn == 'LEFT'):
             self.turnLeft(car)
         else:
             self.goStraight(car)

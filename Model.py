@@ -39,8 +39,10 @@ class Model(object):
     and adjacent to each lane.
     """
     def __init__(self):
+        self.laneArray=[]
       return None
-      
+    
+    
     """
     Pre: Have initialized each lane and car object.
     
@@ -48,6 +50,13 @@ class Model(object):
     cars moving through traffic.
     """
     def runModel(self):
+        
+        for i in range (sim_length*15):
+            
+            for lane in laneArray:
+                lane.nextMove()
+                
+        
       return None
     
     

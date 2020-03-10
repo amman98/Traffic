@@ -59,5 +59,25 @@ class Model(object):
         
       return None
     
+    """
+    Calculates average time a spent within the traffic boundary
+    for a single simulation run.
+    """
+    def getAverageTime(self):
+        average = 0
+        #- sums up all car times
+        for i in range(0, len(self.timeWithinBoundary)):
+            average = average + self.timeWithinBoundary[i]
+        #- divides sum by number of cars that left boundary
+        average = average /len(self.timeWithinBoundary    
+        return average
     
-    
+    """
+    This method will run the traffic simulation nunerous times,
+    each time changing the length of time the simulation runs.
+    It will record the average time a car was within the simulation
+    boundary for each simulation run, and plot these values on a line
+    graph.
+    """
+    def plotAverage(self):
+        

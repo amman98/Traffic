@@ -15,10 +15,13 @@ class Car(object):
     
     location: 1D array of size 2 to 
     represent the coordinates of the car.
+    timeToBoundary: number of time steps
+    it takes for a car to reach a boundary
     """
     def __init__(self, lane, location):
        self.environ = lane
        self.loc_in_environ = location
+       self.timeToBoundary=0
     
     """
     Pre: Car's loc_in_environ and environ attributes

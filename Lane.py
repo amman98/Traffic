@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Mar  5 11:40:13 2020
-
 @author: esher
 """
 
+
+import Car
 class Lane(object):
    
-    def __init__(self,x=7, y=4,lLane,rLane,ftLane,direction):
+    def __init__(self,lLane,rLane,fLane,direction,adjacentLane,x=7, y=4):
         self.x=x
         self.y=y
         self.carList=[]
@@ -19,6 +20,8 @@ class Lane(object):
         self.sLane=fLane
         # type of lane 
         self.direction=direction
+        #to make a potential lane change
+        self.adjLane=adjacentLane
     """
     this method sets the length of the green and red light
     
@@ -33,9 +36,12 @@ class Lane(object):
         self.c_downG=gLight
         self.c_downR=rLight
         
-     #adding car to the list of cars in the lane   
+    """
+     adding car to the list of cars in the lane  
+    """
     def addCar(self,car):
         self.carList.append(car)
+        
     #method to remove car after it leaves the lane
     def removeCar(self, car):  
         self.carList.remove(car)
@@ -107,7 +113,7 @@ class Lane(object):
     """        
     def nextMove(self):
         if(self.c_downG>=0):
-            c_downR=c_downR-1
+            self.c_downR=self.c_downR-1
         else:
             self.moveCar(self.carList[0])
             for i in self.carList:
@@ -115,7 +121,6 @@ class Lane(object):
     """
     this method call a turn based on the direction the car 
     wants to go, its assumed that the car is first in the lane 
-
     """    
         
     def moveCar(self, car):
@@ -125,9 +130,35 @@ class Lane(object):
             self.turnLeft(car)
         else:
             self.goStraight(car)
+     
+    """
+    this makes new cars, for lanes 
+    that go out to the boundary
+    """
+    def incomingCar(self,numCars):
+        for i in range(numCars):
+            j=Car(self,self.y,self.x)
+            self.carList.append(j)
+    '''
+    method to change lane to an adjacent lane 
+    from straight or right lane to a left turn lane
+    '''
+    def changeLane(self,car):
+        #if checks the direction to determine weather to check the x or the y
+        if (self.direction =="EAST" or self.direction=="WEST" ):
+            car.y=car.y+1
+        else:
+            car.x=car.x+1
+        self.adjLane.addCar(car)
+        self.removeCar(car)
             
+            
+    
+        
+        
+        
+        
         
         
         
     #cars that reach boundary 
-        

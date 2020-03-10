@@ -43,3 +43,12 @@ class Car(object):
             self.car_turn = 'RIGHT'
             
         self.car_turn = 'STRAIGHT'
+        
+    """
+    accessor method for the instance variable
+    timeToBoundary. When car leaves boundary,
+    Model class will add this value to list
+    of car times within boundary.
+    """
+    def getTimeToBoundary(self):
+        return self.timeToBoundary

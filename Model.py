@@ -39,7 +39,13 @@ class Model(object):
     and adjacent to each lane.
     """
     def __init__(self):
-        self.laneArray=[]
+        """
+        create four intersection objects and make
+        clear which ones are adjacent to which.
+        
+        have each intersection adjacent to the 
+        boundary.
+        """
         self.timeWithinBoundary = []
     
     

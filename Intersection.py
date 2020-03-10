@@ -17,6 +17,9 @@ class Intersection(object):
         self.eastLanes = []
         self.southLanes = []
         self.westLanes = []
+        """
+        initalize each lane and set its adjcents 
+        """
         
         #add right and left lanes for every direction
         self.northLanes.append(LeftLane())
@@ -31,6 +34,8 @@ class Intersection(object):
         self.westLanes.append(LeftLane())
         self.westLanes.append(StraightLane())
         
+        #adjcent intersections to be initialized later 
+        self.adjacentIntersections=[]
         #set values for light duration
         self.NSgreenLightDur = NSgreenLightDur
         self.EWLightDur = EWLightDur
@@ -44,6 +49,11 @@ class Intersection(object):
         self.light=NSgreenLightDur+(leftLightDur*2)+EWLightDur
         self.currentLightTime=0
         
+         
+      
+      
+      
+      
         """
         This methods calls the moveCars method on all the lanes in the intersection
         

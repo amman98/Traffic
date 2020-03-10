@@ -8,7 +8,7 @@ Created on Thu Mar  5 11:40:13 2020
 import Car
 class Lane(object):
    
-    def __init__(self,lLane,rLane,fLane,direction,adjacentLane,x=7, y=4):
+    def __init__(self,lLane,rLane,fLane,direction,adjacentLane):
         self.x=x
         self.y=y
         self.carList=[]
@@ -77,35 +77,7 @@ class Lane(object):
     
     """   
     
-    def turnLeft(self,car):
-        
-        if(self.direction=="North"):
-            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
-            car.loc_in_environ[1] = car.loc_in_environ[1] - 1
-        elif(self.direction=="South"):
-            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
-            car.loc_in_environ[1] = car.loc_in_environ[1] + 1   
-        elif(self.direction=="East"):
-            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
-            car.loc_in_environ[1] = car.loc_in_environ[1] - 1     
-        else :
-            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
-            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
-        
-        self.lLane.addCar(car)
-        self.removeCar(car)
     
-        
-    # continues to go straight on its lane
-    def goStraight(self,car):
-        if(self.direction=="North"):
-            car.loc_in_environ[0] = car.loc_in_environ[0] - 1
-        elif(self.direction=="South"):
-            car.loc_in_environ[0] = car.loc_in_environ[0] + 1
-        elif(self.direction=="East"):
-            car.loc_in_environ[1] = car.loc_in_environ[1] + 1
-        else :
-            car.loc_in_environ[1] = car.loc_in_environ[1] - 1
     """
     at each time step a car in the front will leave the lane
     and cars behind it will move one cell closer to the intersection
@@ -118,18 +90,7 @@ class Lane(object):
             self.moveCar(self.carList[0])
             for i in self.carList:
                 self.goStraight(i)
-    """
-    this method call a turn based on the direction the car 
-    wants to go, its assumed that the car is first in the lane 
-    """    
         
-    def moveCar(self, car):
-        if(car.car_turn == 'RIGHT'):
-            self.turnRight(car)
-        elif(car.turn == 'LEFT'):
-            self.turnLeft(car)
-        else:
-            self.goStraight(car)
      
     """
     this makes new cars, for lanes 
@@ -138,6 +99,7 @@ class Lane(object):
     def incomingCar(self,numCars):
         for i in range(numCars):
             j=Car(self,self.y,self.x)
+            
             self.carList.append(j)
     '''
     method to change lane to an adjacent lane 

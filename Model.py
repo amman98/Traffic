@@ -40,7 +40,7 @@ class Model(object):
     """
     def __init__(self):
         self.laneArray=[]
-      return None
+        self.timeWithinBoundary = []
     
     
     """

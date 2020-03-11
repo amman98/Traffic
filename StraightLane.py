@@ -7,7 +7,7 @@ Cars are able to either drive straight throught the intersection,
 or make a right turn.
 """
 
-from .car import Car 
+from Car import Car 
 class StraightLane(object):
    
     """
@@ -256,8 +256,7 @@ class StraightLane(object):
     def removeCar(self, car):  
         self.carList.remove(car)
         self.carCount = self.carCount - 1 
-         
-      
+    
     """
     This method returns a list of tuples that
     represent the coordinates of each car on this lane.

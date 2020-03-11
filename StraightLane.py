@@ -6,7 +6,7 @@ This class represents a lane on the right side of the road.
 Cars are able to either drive straight throught the intersection,
 or make a right turn.
 """
-
+import numpy as N
 from Car import Car 
 class StraightLane(object):
    
@@ -33,7 +33,7 @@ class StraightLane(object):
             cars in the lane each time step and have them either move thought the
             intersection to a new lane or move up in their lane position.
 
-         nextLanFwd:
+         nextLaneFwd:
             A pointer the the next lane if the car travels forward to the next
                 intersection
         
@@ -49,16 +49,21 @@ class StraightLane(object):
              A pointer to the next lane if the car travels right and then
                 wants to take a left turn next.
          """
+    nextLaneFwd = None
+    nextLaneFwdLeft = None 
+    nextLaneRightFwd = None           
+    nextLaneRightLeft = None
     def __init__(self, direction, carLimit = 10):
-        
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction
         self.carList = []
-        self.nextLaneFwd = None
-        self.nextLaneFwdLeft = None 
-        self.nextLaneRightFwd = None           
-        self.nextLaneRightLeft = None
+        for i in range(0, carLimit):
+            self.carList.append(Car('LeftLane', 2, 4))
+        #self.nextLaneFwd = None
+        #self.nextLaneFwdLeft = None 
+        #self.nextLaneRightFwd = None           
+        #self.nextLaneRightLeft = None
        
     def moveCars(self):
         carLeft = False

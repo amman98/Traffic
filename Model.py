@@ -45,7 +45,7 @@ class Model(object):
         intersectionArray[0][0] = Intersection()
         intersectionArray[0][1] = Intersection()
         intersectionArray[1][0] = Intersection()
-        intersectionArray[0][1] = Intersection()
+        intersectionArray[1][1] = Intersection()
         
         # North Bound Lanes                     
         # left turn lane                   

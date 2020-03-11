@@ -4,9 +4,9 @@
 """
 
 
-from .straightlane import StraightLane
-from .leftlane import LeftLane
-from .rightlane import RightLane
+from StraightLane import StraightLane
+from LeftLane import LeftLane
+#from .rightlane import RightLane
 
 
 class Intersection(object):
@@ -23,16 +23,16 @@ class Intersection(object):
         
         if leftFirst:
            #add right and left lanes for every direction
-           self.northLanes.append(LeftLane("NORTH", carLimit)))
+           self.northLanes.append(LeftLane("NORTH", carLimit))
            self.northLanes.append(StraightLane("NORTH", carLimit))
 
-           self.eastLanes.append(LeftLane("EAST", carLimit)))
+           self.eastLanes.append(LeftLane("EAST", carLimit))
            self.eastLanes.append(StraightLane("EAST", carLimit))
 
-           self.southLanes.append(LeftLane("SOUTH", carLimit)))
+           self.southLanes.append(LeftLane("SOUTH", carLimit))
            self.southLanes.append(StraightLane("SOUTH", carLimit))
 
-           self.westLanes.append(LeftLane("WEST", carLimit)))
+           self.westLanes.append(LeftLane("WEST", carLimit))
            self.westLanes.append(StraightLane("WEST", carLimit))
 
            #set values for light duration
@@ -43,19 +43,19 @@ class Intersection(object):
            self.EWleftLightDur = EWgreenLightDur - leftTurnDiff
 
            self.lightOrder = [NSleftLightDur, NSgreenLightDur, EWgreenLightDur, EWleftLightDur]
-       else:
+        else:
       #add right and left lanes for every direction
            self.northLanes.append(StraightLane("NORTH", carLimit))
-           self.northLanes.append(LeftLane("NORTH", carLimit)))
+           self.northLanes.append(LeftLane("NORTH", carLimit))
            
            self.eastLanes.append(StraightLane("EAST", carLimit))
-           self.eastLanes.append(LeftLane("EAST", carLimit)))
+           self.eastLanes.append(LeftLane("EAST", carLimit))
           
            self.southLanes.append(StraightLane("SOUTH", carLimit))
-           self.southLanes.append(LeftLane("SOUTH", carLimit)))
+           self.southLanes.append(LeftLane("SOUTH", carLimit))
            
            self.westLanes.append(StraightLane("WEST", carLimit))
-           self.westLanes.append(LeftLane("WEST", carLimit)))
+           self.westLanes.append(LeftLane("WEST", carLimit))
 
            #set values for light duration
            self.NSgreenLightDur = NSgreenLightDur
@@ -68,7 +68,7 @@ class Intersection(object):
       
       
       
-      """
+        """
         light is an integer for the number of timesteps 
         that onc cycle takes 
         its NSgreenLight, EWLightDur, and 2 times the left because there are 
@@ -112,3 +112,19 @@ class Intersection(object):
                if self.currentLightIndex == 4:
                   self.currentLightIndex = 0
               
+         
+        """
+        Method returns a list of tuples representing the coordinates
+        of each car that is in this intersection. Each lane calls its
+        getCoord() method to return a list and then each list is concatenated
+        to create a bigger list that is returned here.
+        """
+        def getAllCoord(self):
+            location = []
+            location = self.northLanes[0].getCoord() + self.northLanes[1].getCoord() + \
+            self.eastLanes[0].getCoord() + self.eastLanes[1].getCoord() + \
+            self.southLanes[0].getCoord() + self.southLanes[1].getCoord() + \
+            self.westLanes[0].getCoord() + self.westLanes[1].getCoord()
+            return location
+            
+            

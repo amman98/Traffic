@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 11 12:49:28 2020
+
+@author: Amman Nega
+"""
+
+from Intersection import Intersection
+import numpy as N
+from BoundaryLane import BoundaryLane
+import matplotlib.pyplot as plt
+
+
 class Model(object):
     
     #- Global Variables
@@ -40,47 +53,47 @@ class Model(object):
     """
     def __init__(self, ):
         
-        border = boundaryLane()
-        intersectionArray = np.array(2, 2, dtype = Intersection)
-        intersectionArray[0][0] = Intersection()
-        intersectionArray[0][1] = Intersection()
-        intersectionArray[1][0] = Intersection()
-        intersectionArray[1][1] = Intersection()
+        border = BoundaryLane()
+        self.intersectionArray = N.array(2, 2, dtype = Intersection)
+        self.intersectionArray[0][0] = Intersection()
+        self.intersectionArray[0][1] = Intersection()
+        self.intersectionArray[1][0] = Intersection()
+        self.intersectionArray[1][1] = Intersection()
         
         # North Bound Lanes                     
         # left turn lane                   
-        intersectionArray[0][0].northLanes[0].nextLaneFwd = border 
-        intersectionArray[0][0].northLanes[0].nextLaneLeft = border 
+        self.intersectionArray[0][0].northLanes[0].nextLaneFwd = border 
+        self.intersectionArray[0][0].northLanes[0].nextLaneLeft = border 
         
         # straight lane                     
-        intersectionArray[0][0].northLanes[1].nextLaneFwd = border 
-        intersectionArray[0][0].northLanes[1].nextLaneFwdLeft = border 
-        intersectionArray[0][0].northLanes[1].nextLaneRightFwd = border 
-        intersectionArray[0][0].northLanes[1].nextLaneRightLeft = border 
+        self.intersectionArray[0][0].northLanes[1].nextLaneFwd = border 
+        self.intersectionArray[0][0].northLanes[1].nextLaneFwdLeft = border 
+        self.intersectionArray[0][0].northLanes[1].nextLaneRightFwd = border 
+        self.intersectionArray[0][0].northLanes[1].nextLaneRightLeft = border 
         
         # East Bound Lanes                       
         # left turn lane
-        intersectionArray[0][0].eastLanes[0].nextLaneFwd = border 
-        intersectionArray[0][0].eastLanes[0].nextLaneLeft = border 
+        self.intersectionArray[0][0].eastLanes[0].nextLaneFwd = border 
+        self.intersectionArray[0][0].eastLanes[0].nextLaneLeft = border 
         
         # straight lane
-        intersectionArray[0][0].eastLanes[1].nextLaneFwd = intersectionArray[0][1].eastLanes[1]
-        intersectionArray[0][0].eastLanes[1].nextLaneFwdLeft = intersectionArray[0][1].eastLanes[0]
-        intersectionArray[0][0].eastLanes[1].nextLaneRightFwd = intersectionArray[0][1].eastLanes[1]
-        intersectionArray[0][0].eastLanes[1].nextLaneRightLeft = intersectionArray[0][1].eastLanes[0]
+        self.intersectionArray[0][0].eastLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
+        self.intersectionArray[0][0].eastLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
+        self.intersectionArray[0][0].eastLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
+        self.intersectionArray[0][0].eastLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
         
         # South Bound Lanes                       
         # left turn lane
-        intersectionArray[0][0].southLanes[0].nextLaneFwd = intersectionArray[0][1].eastLanes[1] 
-        intersectionArray[0][0].southLanes[0].nextLaneLeft = intersectionArray[0][1].eastLanes[0]
+        self.intersectionArray[0][0].southLanes[0].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1] 
+        self.intersectionArray[0][0].southLanes[0].nextLaneLeft = self.intersectionArray[0][1].eastLanes[0]
         
         # straight lane
-        intersectionArray[0][0].southLanes[1].nextLaneFwd = intersectionArray[1][0].southLanes[1]
-        intersectionArray[0][0].southLanes[1].nextLaneFwdLeft = intersectionArray[1][0].southLanes[0]
-        intersectionArray[0][0].southLanes[1].nextLaneRightFwd = intersectionArray[1][0].southLanes[1]
-        intersectionArray[0][0].southLanes[1].nextLaneRightLeft = intersectionArray[1][0].southLanes[0]
+        self.intersectionArray[0][0].southLanes[1].nextLaneFwd = self.intersectionArray[1][0].southLanes[1]
+        self.intersectionArray[0][0].southLanes[1].nextLaneFwdLeft = self.intersectionArray[1][0].southLanes[0]
+        self.intersectionArray[0][0].southLanes[1].nextLaneRightFwd = self.intersectionArray[1][0].southLanes[1]
+        self.intersectionArray[0][0].southLanes[1].nextLaneRightLeft = self.intersectionArray[1][0].southLanes[0]
 
-                             """
+        """
         create four intersection objects and make
         clear which ones are adjacent to which.
         
@@ -97,15 +110,51 @@ class Model(object):
     cars moving through traffic.
     """
     def runModel(self):
-        
-        for i in range (sim_length*15):
-            
-            for lane in laneArray:
-                lane.nextMove()
-                
-        
-      return None
+        length = 42
+        width = 42
+        data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+
+
+        #- Create figure and axes:
     
+        fig = plt.figure(figsize=(15,15)) #- sets window size to 5 x 5, returns a figure
+        #ax = fig.add_axes( (0.0, 0.0, 1.0, 1.0), frameon=False )
+        ax = fig.add_axes( (0.2, 0.2, 0.6, 0.6), frameon=False ) #- size of rectangle (left-right, up-down, width, height), returns axes?
+
+        #- draw lanes and intersections here
+        #- boundary of traffic
+        data[:, 0, :] = N.array([0, 1, 0])
+        data[0, :, :] = N.array([0, 1, 0])
+        data[:, -1, :] = N.array([0, 1, 0])
+        data[-1, :, :] = N.array([0, 1, 0])
+        
+        img = ax.imshow(data, interpolation='none',
+                extent=[0, width, 0, length],
+                aspect="auto",
+                zorder=0) #- 5 parameters
+        ax.axis('off') #- Turns off axis labels
+        plt.draw() #- draws the figure, visualization is shown here
+        allCoord = []
+        for i in range (self.sim_length*15):
+            plt.pause(1) #- pauses visualization for 2 seconds
+            self.intersectionArray[0][0].moveCars()
+            self.intersectionArray[0][1].moveCars()
+            self.intersectionArray[1][0].moveCars()
+            self.intersectionArray[1][1].moveCars()
+            allCoord = self.intersectionArray[0][0].getAllCoord() + \
+            self.intersectionArray[0][1].getAllCoord() + \
+            self.intersectionArray[1][0].getAllCoord() + \
+            self.intersectionArray[1][1].getAllCoord()
+            for i in range(0, len(allCoord)):
+                data[allCoord[i][0], allCoord[i][1], :] = N.array([0, 0, 1])
+            img.set_data(data) #- changes drawing to add new colors
+            plt.draw() #- draws the figure, visualization is shown here
+            data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+
+                
+                
+                
+            
     """
     Calculates average time a spent within the traffic boundary
     for a single simulation run.
@@ -116,8 +165,9 @@ class Model(object):
         for i in range(0, len(self.timeWithinBoundary)):
             average = average + self.timeWithinBoundary[i]
         #- divides sum by number of cars that left boundary
-        average = average /len(self.timeWithinBoundary    
+        average = average /len(self.timeWithinBoundary) 
         return average
+    
     
     """
     This method will run the traffic simulation nunerous times,
@@ -126,5 +176,5 @@ class Model(object):
     boundary for each simulation run, and plot these values on a line
     graph.
     """
-    def plotAverage(self):
+ #   def plotAverage(self):
         

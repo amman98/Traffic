@@ -2,7 +2,8 @@
 """
 @author: James Pfleger
 """
-
+probLeft = 0.4
+probRight = 0.3
 
 from StraightLane import StraightLane
 from LeftLane import LeftLane
@@ -11,7 +12,7 @@ from LeftLane import LeftLane
 
 class Intersection(object):
    
-    def __init__(self, leftFirst = True, carLimit = 10, rightLane = False, NSgreenLightDur = 15, EWgreenLightDur = 15, leftTurnDiff = 5):
+    def __init__(self, leftFirst = True, carLimit = 10, rightLane = False, NSleftLightDur = 15, EWleftLightDur = 15, NSgreenLightDur = 15, EWgreenLightDur = 15, leftTurnDiff = 5):
         #lists which will hold the left and right lane of  of the 4 directions
         self.northLanes = []
         self.eastLanes = []
@@ -23,16 +24,16 @@ class Intersection(object):
         
         if leftFirst:
            #add right and left lanes for every direction
-           self.northLanes.append(LeftLane("NORTH", carLimit))
+           self.northLanes.append(LeftLane('NORTH', probRight, probLeft, carLimit))
            self.northLanes.append(StraightLane("NORTH", carLimit))
 
-           self.eastLanes.append(LeftLane("EAST", carLimit))
+           self.eastLanes.append(LeftLane("EAST", probRight, probLeft, carLimit))
            self.eastLanes.append(StraightLane("EAST", carLimit))
 
-           self.southLanes.append(LeftLane("SOUTH", carLimit))
+           self.southLanes.append(LeftLane("SOUTH", probRight, probLeft, carLimit))
            self.southLanes.append(StraightLane("SOUTH", carLimit))
 
-           self.westLanes.append(LeftLane("WEST", carLimit))
+           self.westLanes.append(LeftLane("WEST", probRight, probLeft, carLimit))
            self.westLanes.append(StraightLane("WEST", carLimit))
 
            #set values for light duration
@@ -74,7 +75,7 @@ class Intersection(object):
         its NSgreenLight, EWLightDur, and 2 times the left because there are 
         2 different types of left turns (NS left turns and EW left turns)
         """
-        self.light=NSgreenLightDur+(leftLightDur*2)+EWLightDur
+        self.light=NSgreenLightDur+(NSleftLightDur*2)+EWgreenLightDur
         self.currentLightTime=0
         self.currentLightIndex = 0
              

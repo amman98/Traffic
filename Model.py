@@ -52,7 +52,7 @@ class Model(object):
     and adjacent to each lane.
     """
     def __init__(self ):
-        
+
         border = BoundaryLane()
         self.intersectionArray = N.array(([Intersection(), Intersection()], [Intersection(), Intersection()]))
 
@@ -60,7 +60,7 @@ class Model(object):
         #self.intersectionArray[0][1] = Intersection()
         #self.intersectionArray[1][0] = Intersection()
         #self.intersectionArray[1][1] = Intersection()
-        
+
         # First Intersection
         
         # North Bound Lanes                     
@@ -245,6 +245,7 @@ class Model(object):
         self.intersectionArray[1][1].westLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
         self.intersectionArray[1][1].westLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
 
+        
         """
         create four intersection objects and make
         clear which ones are adjacent to which.
@@ -288,8 +289,14 @@ class Model(object):
         ax.axis('off') #- Turns off axis labels
         plt.draw() #- draws the figure, visualization is shown here
         allCoord = []
-        for i in range (self.sim_length*15):
+        for i in range (5):
+            
             plt.pause(1) #- pauses visualization for 2 seconds
+            #- boundary of traffic
+            data[:, 0, :] = N.array([0, 1, 0])
+            data[0, :, :] = N.array([0, 1, 0])
+            data[:, -1, :] = N.array([0, 1, 0])
+            data[-1, :, :] = N.array([0, 1, 0])
             self.intersectionArray[0][0].moveCars()
             self.intersectionArray[0][1].moveCars()
             self.intersectionArray[1][0].moveCars()

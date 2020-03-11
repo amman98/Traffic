@@ -1,5 +1,5 @@
 
-import Model
+from Model import Model
 
 def mainFunc():
     m = Model()

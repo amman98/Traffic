@@ -101,3 +101,17 @@ class LeftLane(Object):
     def removeCar(self, car):  
         self.carList.remove(car)
         self.carCount = self.carCount - 1                 
+
+    """
+    This method returns a list of tuples that
+    represent the coordinates of each car on this lane.
+    This list will be used in the Model class to aid in
+    visualizing each car's location.
+    """    
+    def getCoord(self):
+        location = []
+        for inCar in self.carList:
+            carLocation = (inCar.loc_in_environ[0], inCar.loc_in_environ[1])
+            location.append(carLocation)
+        return location
+                   

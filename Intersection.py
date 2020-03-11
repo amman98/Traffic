@@ -11,7 +11,7 @@ from .rightlane import RightLane
 
 class Intersection(object):
    
-    def __init__(self, rightLane = False, NSgreenLightDur = 15, leftLightDur = 10, EWLightDur = 15):
+    def __init__(self, leftFirst = True, carLimit = 10, rightLane = False, NSgreenLightDur = 15, EWgreenLightDur = 15, leftTurnDiff = 5):
         #lists which will hold the left and right lane of  of the 4 directions
         self.northLanes = []
         self.eastLanes = []
@@ -21,26 +21,54 @@ class Intersection(object):
         initalize each lane and set its adjcents 
         """
         
-        #add right and left lanes for every direction
-        self.northLanes.append(LeftLane())
-        self.northLanes.append(StraightLane())
-        
-        self.eastLanes.append(LeftLane())
-        self.eastLanes.append(StraightLane())
-        
-        self.southLanes.append(LeftLane())
-        self.southLanes.append(StraightLane())
-        
-        self.westLanes.append(LeftLane())
-        self.westLanes.append(StraightLane())
-        
-        #adjcent intersections to be initialized later 
-        self.adjacentIntersections=[]
-        #set values for light duration
-        self.NSgreenLightDur = NSgreenLightDur
-        self.EWLightDur = EWLightDur
-        self.leftLightDur=leftLightDur
-        """
+        if leftFirst:
+           #add right and left lanes for every direction
+           self.northLanes.append(LeftLane("NORTH", carLimit)))
+           self.northLanes.append(StraightLane("NORTH", carLimit))
+
+           self.eastLanes.append(LeftLane("EAST", carLimit)))
+           self.eastLanes.append(StraightLane("EAST", carLimit))
+
+           self.southLanes.append(LeftLane("SOUTH", carLimit)))
+           self.southLanes.append(StraightLane("SOUTH", carLimit))
+
+           self.westLanes.append(LeftLane("WEST", carLimit)))
+           self.westLanes.append(StraightLane("WEST", carLimit))
+
+           #set values for light duration
+           self.NSgreenLightDur = NSgreenLightDur
+           self.NSleftLightDur = NSgreenLightDur - leftTurnDiff
+
+           self.EWgreenLightDur = EWgreenLightDur
+           self.EWleftLightDur = EWgreenLightDur - leftTurnDiff
+
+           self.lightOrder = [NSleftLightDur, NSgreenLightDur, EWgreenLightDur, EWleftLightDur]
+       else:
+      #add right and left lanes for every direction
+           self.northLanes.append(StraightLane("NORTH", carLimit))
+           self.northLanes.append(LeftLane("NORTH", carLimit)))
+           
+           self.eastLanes.append(StraightLane("EAST", carLimit))
+           self.eastLanes.append(LeftLane("EAST", carLimit)))
+          
+           self.southLanes.append(StraightLane("SOUTH", carLimit))
+           self.southLanes.append(LeftLane("SOUTH", carLimit)))
+           
+           self.westLanes.append(StraightLane("WEST", carLimit))
+           self.westLanes.append(LeftLane("WEST", carLimit)))
+
+           #set values for light duration
+           self.NSgreenLightDur = NSgreenLightDur
+           self.NSleftLightDur = NSgreenLightDur - leftTurnDiff
+
+           self.EWgreenLightDur = EWgreenLightDur
+           self.EWleftLightDur = EWgreenLightDur - leftTurnDiff
+
+           self.lightOrder = [NSgreenLightDur, NSleftLightDur, EWleftLightDur, EWgreenLightDur]
+      
+      
+      
+      """
         light is an integer for the number of timesteps 
         that onc cycle takes 
         its NSgreenLight, EWLightDur, and 2 times the left because there are 
@@ -48,11 +76,8 @@ class Intersection(object):
         """
         self.light=NSgreenLightDur+(leftLightDur*2)+EWLightDur
         self.currentLightTime=0
-        
-         
-      
-      
-      
+        self.currentLightIndex = 0
+             
       
         """
         This methods calls the moveCars method on all the lanes in the intersection
@@ -64,69 +89,26 @@ class Intersection(object):
         
         def moveCars(self):
             #when light time is greater than maximum light time - green light duration of north and south lanes 
-            if(self.currentLightTime>self.light-self.NSgreenLightDur):
-                #these lanes are going straight, North and South, have green light
-                self.northLanes[1].moveCars()
-                self.southLanes[1].moveCars()
-                #these lanes turning left, from Norht and Suth, have a red light
-                self.northLanes[0].moveCars(greenLight=False)
-                self.southLanes[0].moveCars(greenLight=False)
-                
-                #all lanes from east and west have red light
-                self.eastLanes.moveCars(greenLight=False)
-                self.westLanes.moveCars(greenLight=False)
-                
-                #decrement the light time
-                self.currentLightTime=self.currentLightTime-1
-            #when current light time is between end of north south green light and east west light duration
-            elif(self.currentLightTime>self.light-self.NSgreenLightDur-EWLightDur):
-                #norht and south Lanes have red lights
-                self.northLanes.moveCars(greenLight=False)
-                self.southLanes.moveCars(greenLight=False)
-                
-                #lanes on east and west turning left have red lights
-                self.eastLanes[0].moveCars(greenLight=False)
-                self.westLanes[0].moveCars(greenLight=False)
-                #lanes on east and west going straight have green lights
-                self.eastLanes[1].moveCars(greenLight=True)
-                self.westLanes[1].moveCars(greenLight=True) 
-                
-                #decrement current light by 1
-                self.currentLightTime=self.currentLightTime-1
-            #current light time between end of east west green light and duration of left lightDuration
-            #for east and west Left turns 
-            elif(self.currentLightTime>self.light-self.NSgreenLightDur-EWLightDur-leftLightDur):
-                #all north and south lanes have red lights
-                self.northLanes.moveCars(greenLight=False)
-                self.southLanes.moveCars(greenLight=False)
-                
-                #lanes on east and west turning left has green light
-                self.eastLanes[0].moveCars(greenLight=True)
-                self.westLanes[0].moveCars(greenLight=True)
-                
-                #lanes on east and west going straight have red lights
-                self.eastLanes[1].moveCars(greenLight=False)
-                self.westLanes[1].moveCars(greenLight=False)
-                
-                #decrement current time by 1
-                self.currentLightTime=self.currentLightTime-1
-            #last light to turn green( left turns for norht and south lane)    
-            else:
-                #North and south lanes have red lights (going straight)
-                self.northLanes[1].moveCars(greenLight=False)
-                self.southLanes[1].moveCars(greenLight=False)
-                
-                #North and south Lanes turning left have green light
-                self.northLanes[0].moveCars(greenLight=True)
-                self.southLanes[0].moveCars(greenLight=True)
-                #east and west lanes have red light
-                self.eastLanes.moveCars(greenLight=False)
-                self.westLanes.moveCars(greenLight=False)
-                #decrement time by 1
-                self.currentLightTime=self.currentLightTime-1
-            #when current time hits 0 the current time resets to time so it can 
-            #complete the cycle again
-            if(self.currentLightTime<=0):
-                self.currentLightTime=self.light
-                
-  
+            if self.currentLightTime <= self.lightOrder[self.currentLightIndex]:
+               # NS Left Turn
+               if self.currentLightIndex == 0:
+                  self.northLanes[self.currentLightIndex % 2].moveCars()
+                  self.southLanes[self.currentLightIndex % 2].moveCars()
+               elif self.currentLightIndex == 1:
+                  self.northLanes[self.currentLightIndex % 2].moveCars()
+                  self.southLanes[self.currentLightIndex % 2].moveCars()
+               elif self.currentLightIndex == 2:
+                  self.eastLanes[self.currentLightIndex % 2].moveCars()
+                  self.westLanes[self.currentLightIndex % 2].moveCars()
+               else:
+                  self.eastLanes[self.currentLightIndex % 2].moveCars()
+                  self.westLanes[self.currentLightIndex % 2].moveCars()
+               
+               self.currentLightTime = self.currentLightTime + 1
+               
+               if self.currentLightTime > self.lightOrder[self.currentLightIndex]:
+                  self.currentLightTime = 0
+                  self.currentLightIndex = self.currentLightIndex + 1
+               if self.currentLightIndex == 4:
+                  self.currentLightIndex = 0
+              

@@ -38,8 +38,49 @@ class Model(object):
     Also decides which lanes are to the front, left, right
     and adjacent to each lane.
     """
-    def __init__(self):
-        """
+    def __init__(self, ):
+        
+        border = boundaryLane()
+        intersectionArray = np.array(2, 2, dtype = Intersection)
+        intersectionArray[0][0] = Intersection()
+        intersectionArray[0][1] = Intersection()
+        intersectionArray[1][0] = Intersection()
+        intersectionArray[0][1] = Intersection()
+        
+        # North Bound Lanes                     
+        # left turn lane                   
+        intersectionArray[0][0].northLanes[0].nextLaneFwd = border 
+        intersectionArray[0][0].northLanes[0].nextLaneLeft = border 
+        
+        # straight lane                     
+        intersectionArray[0][0].northLanes[1].nextLaneFwd = border 
+        intersectionArray[0][0].northLanes[1].nextLaneFwdLeft = border 
+        intersectionArray[0][0].northLanes[1].nextLaneRightFwd = border 
+        intersectionArray[0][0].northLanes[1].nextLaneRightLeft = border 
+        
+        # East Bound Lanes                       
+        # left turn lane
+        intersectionArray[0][0].eastLanes[0].nextLaneFwd = border 
+        intersectionArray[0][0].eastLanes[0].nextLaneLeft = border 
+        
+        # straight lane
+        intersectionArray[0][0].eastLanes[1].nextLaneFwd = intersectionArray[0][1].eastLanes[1]
+        intersectionArray[0][0].eastLanes[1].nextLaneFwdLeft = intersectionArray[0][1].eastLanes[0]
+        intersectionArray[0][0].eastLanes[1].nextLaneRightFwd = intersectionArray[0][1].eastLanes[1]
+        intersectionArray[0][0].eastLanes[1].nextLaneRightLeft = intersectionArray[0][1].eastLanes[0]
+        
+        # South Bound Lanes                       
+        # left turn lane
+        intersectionArray[0][0].southLanes[0].nextLaneFwd = intersectionArray[0][1].eastLanes[1] 
+        intersectionArray[0][0].southLanes[0].nextLaneLeft = intersectionArray[0][1].eastLanes[0]
+        
+        # straight lane
+        intersectionArray[0][0].southLanes[1].nextLaneFwd = intersectionArray[1][0].southLanes[1]
+        intersectionArray[0][0].southLanes[1].nextLaneFwdLeft = intersectionArray[1][0].southLanes[0]
+        intersectionArray[0][0].southLanes[1].nextLaneRightFwd = intersectionArray[1][0].southLanes[1]
+        intersectionArray[0][0].southLanes[1].nextLaneRightLeft = intersectionArray[1][0].southLanes[0]
+
+                             """
         create four intersection objects and make
         clear which ones are adjacent to which.
         

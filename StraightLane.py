@@ -49,12 +49,14 @@ class StraightLane(object):
              A pointer to the next lane if the car travels right and then
                 wants to take a left turn next.
          """
-    def __init__(self, direction, carLimit = 10):
+    def __init__(self, direction, probRight, probLeft carLimit = 10):
         
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction
         self.carList = []
+        self.probRight = probRight
+        self.probLeft = probLeft
         self.nextLaneFwd = None
         self.nextLaneFwdLeft = None 
         self.nextLaneRightFwd = None           
@@ -64,7 +66,7 @@ class StraightLane(object):
         carLeft = False
         # check that the lane is not empty
         if self.carList.len() != 0:
-            self.carList[0].timeAlive = self.carList[0].timeAlive + 1
+            self.carList[0].timeToBorder = self.carList[0].timeToBorder  + 1
             # check that the light for the lane is green
             if greenLight:                
                 #- update car's coordinates based on direction lane is facing
@@ -73,7 +75,7 @@ class StraightLane(object):
                 if self.carList[0].car_turn == "STRAIGHT":
                     
                     # car wants to go straight or right in the next intersection
-                    self.carList[0].chooseTurn()
+                    self.carList[0].chooseTurn(probRight, probLeft)
                     if self.carList[0].car_turn == "STRAIGHT" or \
                         self.carList[0].car_turn == "RIGHT":
                         if self.nextLaneFwd.carList.len() != \
@@ -142,7 +144,7 @@ class StraightLane(object):
                 else:
                     
                     # need to decide next movement to know which lane to enter
-                    self.carList[0].chooseTurn()
+                    self.carList[0].chooseTurn(probRight, probLeft )
                     if self.carList[0].car_turn == "STRAIGHT" or \
                         self.carList[0].car_turn == "RIGHT":
                         if self.nextLaneRightFwd.carList.len() != \

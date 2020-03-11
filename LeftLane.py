@@ -1,9 +1,9 @@
 from Car import Car 
 import numpy as np
 
-class LeftLane(Object):
+class LeftLane(object):
 
-     def __init__(self, direction, probRight, probLeft carLimit = 10):
+    def __init__(self, direction, probRight, probLeft, carLimit = 10):
         
         self.carLimit = carLimit
         self.carCount = 0
@@ -115,3 +115,11 @@ class LeftLane(Object):
             location.append(carLocation)
         return location
                    
+              
+
+
+
+
+
+
+                

@@ -51,20 +51,21 @@ class Model(object):
     Also decides which lanes are to the front, left, right
     and adjacent to each lane.
     """
-    def __init__(self, ):
+    def __init__(self ):
         
         border = BoundaryLane()
-        self.intersectionArray = N.array(2, 2, dtype = Intersection)
-        self.intersectionArray[0][0] = Intersection()
-        self.intersectionArray[0][1] = Intersection()
-        self.intersectionArray[1][0] = Intersection()
-        self.intersectionArray[1][1] = Intersection()
+        self.intersectionArray = N.array(([Intersection(), Intersection()], [Intersection(), Intersection()]))
+
+        #self.intersectionArray[0][0] = Intersection()
+        #self.intersectionArray[0][1] = Intersection()
+        #self.intersectionArray[1][0] = Intersection()
+        #self.intersectionArray[1][1] = Intersection()
         
         # North Bound Lanes                     
         # left turn lane                   
         self.intersectionArray[0][0].northLanes[0].nextLaneFwd = border 
         self.intersectionArray[0][0].northLanes[0].nextLaneLeft = border 
-        
+
         # straight lane                     
         self.intersectionArray[0][0].northLanes[1].nextLaneFwd = border 
         self.intersectionArray[0][0].northLanes[1].nextLaneFwdLeft = border 
@@ -101,7 +102,7 @@ class Model(object):
         boundary.
         """
         self.timeWithinBoundary = []
-    
+
     
     """
     Pre: Have initialized each lane and car object.
@@ -110,6 +111,7 @@ class Model(object):
     cars moving through traffic.
     """
     def runModel(self):
+
         length = 42
         width = 42
         data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8

@@ -53,12 +53,14 @@ class StraightLane(object):
     nextLaneFwdLeft = None 
     nextLaneRightFwd = None           
     nextLaneRightLeft = None
-    def __init__(self, direction, carLimit = 10):
+    def __init__(self, direction, probRight = 2, probLeft = 4 carLimit = 10):
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction
         self.carList = []
-        for i in range(0, carLimit):
+        self.probRight = probRight
+        self.probLeft = probLeft
+        for i in range(0, carLimit / 2):
             self.carList.append(Car('LeftLane', 2, 4))
         #self.nextLaneFwd = None
         #self.nextLaneFwdLeft = None 
@@ -235,7 +237,7 @@ class StraightLane(object):
         # the lane
         if carLeft:
             self.updatePosition()
-                
+             
     def updatePosition(self):
         """
         Helper method that moves all the cars in the lane up one position
@@ -252,7 +254,25 @@ class StraightLane(object):
             elif self.direction == 'SOUTH':
                 inCar.loc_in_environ[0] = inCar.loc_in_environ[0] + 1              
                 
-                           
+    def addCarRandom(self):
+      newCarAmount = (int) np.random.uniform() * self.carLimit
+      i = 0
+      
+      while i < newCarAmount and self.carCount < self.carLimit:
+         if self.direction == "NORTH":
+            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )
+         elif self.direction == "EAST":
+            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ) )
+
+         elif self.direction == "SOUTH":
+            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
+
+         else:
+            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
+   
+         
+      
+      
      #adding car to the list of cars in the lane   
     def addCar(self,car):
         self.carList.append(car)

@@ -34,6 +34,8 @@ class Intersection(object):
         self.int_number=0
         self.x=x
         self.y=y
+        self.probCarNS=probCarNS
+        self.probCarEW=probCarEW
         """
         initalize each lane and set its adjcents 
         """

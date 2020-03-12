@@ -12,7 +12,21 @@ from LeftLane import LeftLane
 
 class Intersection(object):
    
-    def __init__(self, leftFirst = True, carLimit = 10, rightLane = False, NSleftLightDur = 15, EWleftLightDur = 15, NSgreenLightDur = 15, EWgreenLightDur = 15, leftTurnDiff = 5):
+    def __init__(self, leftFirst = True, probCarNS = .9, probCarEW = .2, probLeft = .2, probRight = .4,\
+        carLimit = 15, NSleftLightDur = 5, EWleftLightDur = 2, NSgreenLightDur = 8, \
+        EWgreenLightDur = 4, startingCarCount = 5):
+    
+    
+    
+        """
+        probRightNS = .2, probRightEW = .4,\
+        probLeftNS = .2, probLeftEW = .4, 
+        """
+        """probRight = .2, probLeft = .4, carLimit = 10, \
+        NSleftLightDur = 15, EWleftLightDur = 15, NSgreenLightDur = 15, EWgreenLightDur = 15):"""
+    
+    
+    
         #lists which will hold the left and right lane of  of the 4 directions
         self.northLanes = []
         self.eastLanes = []
@@ -24,47 +38,46 @@ class Intersection(object):
         
         if leftFirst:
            #add right and left lanes for every direction
-           self.northLanes.append(LeftLane('NORTH', probRight, probLeft, carLimit))
-           self.northLanes.append(StraightLane("NORTH", carLimit))
+           self.northLanes.append(LeftLane('NORTH'))
+           self.northLanes.append(StraightLane("NORTH"))
 
-           self.eastLanes.append(LeftLane("EAST", probRight, probLeft, carLimit))
-           self.eastLanes.append(StraightLane("EAST", carLimit))
+           self.eastLanes.append(LeftLane("EAST"))
+           self.eastLanes.append(StraightLane("EAST"))
 
-           self.southLanes.append(LeftLane("SOUTH", probRight, probLeft, carLimit))
-           self.southLanes.append(StraightLane("SOUTH", carLimit))
+           self.southLanes.append(LeftLane("SOUTH"))
+           self.southLanes.append(StraightLane("SOUTH"))
 
-           self.westLanes.append(LeftLane("WEST", probRight, probLeft, carLimit))
-           self.westLanes.append(StraightLane("WEST", carLimit))
+           self.westLanes.append(LeftLane("WEST"))
+           self.westLanes.append(StraightLane("WEST"))
 
            #set values for light duration
            self.NSgreenLightDur = NSgreenLightDur
-           self.NSleftLightDur = NSgreenLightDur - leftTurnDiff
+           self.NSleftLightDur = NSleftLightDur
 
            self.EWgreenLightDur = EWgreenLightDur
-           self.EWleftLightDur = EWgreenLightDur - leftTurnDiff
+           self.EWleftLightDur = EWleftLightDur
 
            self.lightOrder = [NSleftLightDur, NSgreenLightDur, EWgreenLightDur, EWleftLightDur]
         else:
       #add right and left lanes for every direction
-           self.northLanes.append(StraightLane("NORTH", carLimit))
-           self.northLanes.append(LeftLane("NORTH", carLimit))
+           self.northLanes.append(StraightLane("NORTH", probCar = 0.5, probRight = .2, probLeft = .4, carLimit = 10))
+           self.northLanes.append(LeftLane("NORTH", probRight, probLeft, probCar = 0.2, carLimit = 10))
            
-           self.eastLanes.append(StraightLane("EAST", carLimit))
-           self.eastLanes.append(LeftLane("EAST", carLimit))
+           self.eastLanes.append(StraightLane("EAST", probCar = 0.5, probRight = .2, probLeft = .4, carLimit = 10))
+           self.eastLanes.append(LeftLane("EAST", probRight, probLeft, probCar = 0.2, carLimit = 10))
           
-           self.southLanes.append(StraightLane("SOUTH", carLimit))
-           self.southLanes.append(LeftLane("SOUTH", carLimit))
+           self.southLanes.append(StraightLane("SOUTH", probCar = 0.5, probRight = .2, probLeft = .4, carLimit = 10))
+           self.southLanes.append(LeftLane("SOUTH", probRight, probLeft, probCar = 0.2, carLimit = 10))
            
-           self.westLanes.append(StraightLane("WEST", carLimit))
-           self.westLanes.append(LeftLane("WEST", carLimit))
+           self.westLanes.append(StraightLane("WEST", probCar = 0.5, probRight = .2, probLeft = .4, carLimit = 10))
+           self.westLanes.append(LeftLane("WEST", probRight, probLeft, probCar = 0.2, carLimit = 10))
 
            #set values for light duration
            self.NSgreenLightDur = NSgreenLightDur
-           self.NSleftLightDur = NSgreenLightDur - leftTurnDiff
+           self.NSleftLightDur = NSleftLightDur
 
            self.EWgreenLightDur = EWgreenLightDur
-           self.EWleftLightDur = EWgreenLightDur - leftTurnDiff
-
+           self.EWleftLightDur = EWleftLightDur
            self.lightOrder = [NSgreenLightDur, NSleftLightDur, EWleftLightDur, EWgreenLightDur]
       
       
@@ -88,41 +101,41 @@ class Intersection(object):
         greenLight by defualt is true
         """
         
-        def moveCars(self):
-            #when light time is greater than maximum light time - green light duration of north and south lanes 
-            if self.currentLightTime <= self.lightOrder[self.currentLightIndex]:
-               # NS Left Turn
-               if self.currentLightIndex == 0:
-                  self.northLanes[self.currentLightIndex % 2].moveCars()
-                  self.southLanes[self.currentLightIndex % 2].moveCars()
-               elif self.currentLightIndex == 1:
-                  self.northLanes[self.currentLightIndex % 2].moveCars()
-                  self.southLanes[self.currentLightIndex % 2].moveCars()
-               elif self.currentLightIndex == 2:
-                  self.eastLanes[self.currentLightIndex % 2].moveCars()
-                  self.westLanes[self.currentLightIndex % 2].moveCars()
-               else:
-                  self.eastLanes[self.currentLightIndex % 2].moveCars()
-                  self.westLanes[self.currentLightIndex % 2].moveCars()
-               
-               self.currentLightTime = self.currentLightTime + 1
-               
-               if self.currentLightTime > self.lightOrder[self.currentLightIndex]:
-                  self.currentLightTime = 0
-                  self.currentLightIndex = self.currentLightIndex + 1
-               if self.currentLightIndex == 4:
-                  self.currentLightIndex = 0
-                  
+    def moveCars(self):
+        #when light time is greater than maximum light time - green light duration of north and south lanes 
+        if self.currentLightTime <= self.lightOrder[self.currentLightIndex]:
+            # NS Left Turn
+            if self.currentLightIndex == 0:
+                self.northLanes[self.currentLightIndex % 2].moveCars()
+                self.southLanes[self.currentLightIndex % 2].moveCars()
+            elif self.currentLightIndex == 1:
+                self.northLanes[self.currentLightIndex % 2].moveCars()
+                self.southLanes[self.currentLightIndex % 2].moveCars()
+            elif self.currentLightIndex == 2:
+                self.eastLanes[self.currentLightIndex % 2].moveCars()
+                self.westLanes[self.currentLightIndex % 2].moveCars()
+            else:
+                self.eastLanes[self.currentLightIndex % 2].moveCars()
+                self.westLanes[self.currentLightIndex % 2].moveCars()
+            
+            self.currentLightTime = self.currentLightTime + 1
+            
+            if self.currentLightTime > self.lightOrder[self.currentLightIndex]:
+                self.currentLightTime = 0
+                self.currentLightIndex = self.currentLightIndex + 1
+            if self.currentLightIndex == 4:
+                self.currentLightIndex = 0
+                
 
-        def addCarsRandom(self):
-            self.northLanes[0].addCarRandom()
-            self.northLanes[1].addCarRandom()
-            self.eastLanes[0].addCarRandom()
-            self.eastLanes[1].addCarRandom()
-            self.southLanes[0].addCarRandom()
-            self.southLanes[1].addCarRandom()
-            self.westLanes[0].addCarRandom()
-            self.westLanes[1].addCarRandom()      
+    def addCarsRandom(self):
+        self.northLanes[0].addCarRandom()
+        self.northLanes[1].addCarRandom()
+        self.eastLanes[0].addCarRandom()
+        self.eastLanes[1].addCarRandom()
+        self.southLanes[0].addCarRandom()
+        self.southLanes[1].addCarRandom()
+        self.westLanes[0].addCarRandom()
+        self.westLanes[1].addCarRandom()      
 
         """
         Method returns a list of tuples representing the coordinates
@@ -130,15 +143,15 @@ class Intersection(object):
         getCoord() method to return a list and then each list is concatenated
         to create a bigger list that is returned here.
         """
-        def getAllCoord(self):
-            location = []
-            location = self.northLanes[0].getCoord() + self.northLanes[1].getCoord() + \
-            self.eastLanes[0].getCoord() + self.eastLanes[1].getCoord() + \
-            self.southLanes[0].getCoord() + self.southLanes[1].getCoord() + \
-            self.westLanes[0].getCoord() + self.westLanes[1].getCoord()
-            return location
-             """
-      """
+    def getAllCoord(self):
+        location = []
+        location = self.northLanes[0].getCoord() + self.northLanes[1].getCoord() + \
+        self.eastLanes[0].getCoord() + self.eastLanes[1].getCoord() + \
+        self.southLanes[0].getCoord() + self.southLanes[1].getCoord() + \
+        self.westLanes[0].getCoord() + self.westLanes[1].getCoord()
+        return location
+        """
+    
         Method returns a list of tuples representing the coordinates
         of each car that is in this intersection. Each lane calls its
         getCoord() method to return a list and then each list is concatenated

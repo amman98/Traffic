@@ -20,7 +20,7 @@ class Model(object):
     used to simulate how congested traffic can be at different times of
     day.
     """
-    probCar = 0.60 
+    probCar2 = 0.60 
     
     """
     redLightLength: int representing seconds light stays red.
@@ -51,10 +51,27 @@ class Model(object):
     Also decides which lanes are to the front, left, right
     and adjacent to each lane.
     """
-    def __init__(self ):
+    def __init__(self, iter = 1000, probCarNS = .9, probCarEW = .4, probLeft = .2, probRight = .4,\
+        carLimit = 10, NSleftLightDur = 4, EWleftLightDur = 2, NSgreenLightDur = 10, \
+        EWgreenLightDur = 8, startingCarCount = 5):
 
-        border = BoundaryLane()
-        self.intersectionArray = N.array(([Intersection(), Intersection()], [Intersection(), Intersection()]))
+        self.border = BoundaryLane()
+        self.intersectionArray = N.array((\
+        [Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
+        carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount),\
+        
+        Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
+        carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount)],\
+        
+        [Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
+        carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount),\
+        
+        Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
+        carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount)]))
 
         #self.intersectionArray[0][0] = Intersection()
         #self.intersectionArray[0][1] = Intersection()
@@ -62,24 +79,24 @@ class Model(object):
         #self.intersectionArray[1][1] = Intersection()
         
         #intersection top left
-        self.intersectionArray[0,0].setAdjacents([border,border,self.intersectionArray[1,0].southLanes[1]\
+        self.intersectionArray[0,0].setAdjacents([self.border,self.border,self.intersectionArray[1,0].southLanes[1]\
                                                  ,self.intersectionArray[1,0].southLanes[0],\
                                                  self.intersectionArray[0,1].eastLanes[1],\
-                                                 self.intersectionArray[0,1].eastLanes[0],border,border])
+                                                 self.intersectionArray[0,1].eastLanes[0],self.border,self.border])
         #intersection top right
-        self.intersectionArray[0,1].setAdjacents([border,border,self.intersectionArray[1,1].southLanes[1],\
-                                                 self.intersectionArray[1,1].southLanes[0],border,border,\
+        self.intersectionArray[0,1].setAdjacents([self.border,self.border,self.intersectionArray[1,1].southLanes[1],\
+                                                 self.intersectionArray[1,1].southLanes[0],self.border,self.border,\
                                                  self.intersectionArray[0,0].westLanes[1],\
                                                  self.intersectionArray[0,0].westLanes[1]])
         #intersection bottom left
         self.intersectionArray[1,0].setAdjacents([self.intersectionArray[0,0].northLanes[1]\
-                                                 ,self.intersectionArray[0,0].northLanes[1],border,\
-                                                 border,self.intersectionArray[1,1].eastLanes[1],\
-                                                 self.intersectionArray[1,1].eastLanes[0],border,border])
+                                                 ,self.intersectionArray[0,0].northLanes[1],self.border,\
+                                                 self.border,self.intersectionArray[1,1].eastLanes[1],\
+                                                 self.intersectionArray[1,1].eastLanes[0],self.border,self.border])
         #intersection bottom right 
         self.intersectionArray[1,1].setAdjacents([self.intersectionArray[0,1].northLanes[1],\
-                                                 self.intersectionArray[0,1].northLanes[0],border,\
-                                                 border,border,border,self.intersectionArray[1,0].westLanes[1],\
+                                                 self.intersectionArray[0,1].northLanes[0],self.border,\
+                                                 self.border,self.border,self.border,self.intersectionArray[1,0].westLanes[1],\
                                                  self.intersectionArray[1,0].westLanes[1]])
         
         """
@@ -126,7 +143,7 @@ class Model(object):
             ax.axis('off') #- Turns off axis labels
             plt.draw() #- draws the figure, visualization is shown here
             allCoord = []
-            for i in range (5):
+            for i in range (50):
 
                 plt.pause(1) #- pauses visualization for 2 seconds
                 #- boundary of traffic
@@ -154,17 +171,19 @@ class Model(object):
                 plt.draw() #- draws the figure, visualization is shown here
                 data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
 
-            else:
+        else:
+            
+            for i in range(1000):
                 self.intersectionArray[0][0].moveCars()
                 self.intersectionArray[0][1].moveCars()
                 self.intersectionArray[1][0].moveCars()
                 self.intersectionArray[1][1].moveCars()
-
+    
                 self.intersectionArray[0][0].addCarsRandom()
                 self.intersectionArray[0][1].addCarsRandom()
                 self.intersectionArray[1][0].addCarsRandom()
                 self.intersectionArray[0][1].addCarsRandom()
-                return self.border.carList
+        return self.border.carList
             
                 
                 

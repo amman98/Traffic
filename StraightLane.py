@@ -53,35 +53,41 @@ class StraightLane(object):
     nextLaneFwdLeft = None 
     nextLaneRightFwd = None           
     nextLaneRightLeft = None
-    def __init__(self, direction, probCar = .5, probRight = 2, probLeft = 4 carLimit = 10):
+    def __init__(self, direction, probCar = 0.9, probRight = .2, probLeft = .4, carLimit = 10):
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction
         self.carList = []
         self.probRight = probRight
         self.probLeft = probLeft
-        self.carProb = carProb
-        for i in range(0, carLimit / 2):
-            self.carList.append(Car('LeftLane', 2, 4))
-        #self.nextLaneFwd = None
-        #self.nextLaneFwdLeft = None 
-        #self.nextLaneRightFwd = None           
-        #self.nextLaneRightLeft = None
+        self.carProb = probCar
+       # for i in range(5):
+        self.carList.append(Car(self, 2, 4))
+        self.carList.append(Car(self, 2, 4))
+        self.carList.append(Car(self, 2, 4))
+        self.carList.append(Car(self, 2, 4))
+        self.carList.append(Car(self, 2, 4))
+            
+        self.carCount = 5
+        self.nextLaneFwd = None
+        self.nextLaneFwdLeft = None 
+        self.nextLaneRightFwd = None           
+        self.nextLaneRightLeft = None
        
     def moveCars(self):
         carLeft = False
         # check that the lane is not empty
-        if self.carList.len() != 0:
+        if len(self.carList) != 0:
              #- update car's coordinates based on direction lane is facing
 
              # car wants to go straight throught the intersection
              if self.carList[0].car_turn == "STRAIGHT":
 
                  # car wants to go straight or right in the next intersection
-                 self.carList[0].chooseTurn(probRight, probLeft)
+                 self.carList[0].chooseTurn(self.probRight, self.probLeft)
                  if self.carList[0].car_turn == "STRAIGHT" or \
                      self.carList[0].car_turn == "RIGHT":
-                     if self.nextLaneFwd.carList.len() != \
+                     if len(self.nextLaneFwd.carList) != \
                          self.nextLaneFwd.carLimit:
                          # car is traveling North
                          if self.direction == 'NORTH':
@@ -105,7 +111,7 @@ class StraightLane(object):
 
                          # adding the car to the new lane
                          self.carList[0].environ = self.nextLaneFwd
-                         self.carList[0].timeToBorder = self.carList[0].timeToBorder  + 1
+                         self.carList[0].timeToBoundary = self.carList[0].timeToBoundary  + 1
 
                          self.nextLaneFwd.addCar(self.carList[0])
                          self.removeCar(self.carList[0])
@@ -116,7 +122,7 @@ class StraightLane(object):
                  # car will enter the left lane immediatly   
                  else:
                      # checking for room in the left lane
-                     if self.nextLaneFwdLeft.carList.len() != \
+                     if len(self.nextLaneFwdLeft.carList) != \
                          self.nextLandFwdLeft.carLimit:
                          # car is traveling North
                          if self.direction == 'NORTH':
@@ -140,7 +146,7 @@ class StraightLane(object):
 
                          # adding the car to the new lane
                          self.carList[0].environ = self.nextLaneFwdLeft
-                         self.carList[0].timeToBorder = self.carList[0].timeToBorder  + 1
+                         self.carList[0].timeToBoundary = self.carList[0].timeToBoundary + 1
                          self.nextLaneFwdLeft.addCar(self.carList[0])
                          self.removeCar(self.carList[0])
                          self.carCount = self.carCount - 1
@@ -150,10 +156,10 @@ class StraightLane(object):
              else:
 
                  # need to decide next movement to know which lane to enter
-                 self.carList[0].chooseTurn(probRight, probLeft )
+                 self.carList[0].chooseTurn(self.probRight, self.probLeft )
                  if self.carList[0].car_turn == "STRAIGHT" or \
                      self.carList[0].car_turn == "RIGHT":
-                     if self.nextLaneRightFwd.carList.len() != \
+                     if len(self.nextLaneRightFwd.carList) != \
                          self.nextLaneRightFwd.carLimit:
                          # car is traveling North
                          if self.direction == 'NORTH':
@@ -185,7 +191,7 @@ class StraightLane(object):
 
                          # adding the car to the new lane
                          self.carList[0].environ = self.nextLaneRightFwd
-                         self.carList[0].timeToBorder = self.carList[0].timeToBorder  + 1
+                         self.carList[0].timeToBoundary = self.carList[0].timeToBoundary  + 1
                          self.nextLaneRightFwd.addCar(self.carList[0])
                          self.removeCar(self.carList[0])
                          self.carCount = self.carCount - 1
@@ -195,7 +201,7 @@ class StraightLane(object):
                  # car will enter the left lane immediatly   
                  else:
                      # checking for room in the left lane
-                     if self.nextLaneRightLeft.carList.len() != \
+                     if len(self.nextLaneRightLeft.carList) != \
                          self.nextLandRightLeft.carLimit:
                          # car is traveling North
                          if self.direction == 'NORTH':
@@ -227,7 +233,7 @@ class StraightLane(object):
 
                          # adding the car to the new lane
                          self.carList[0].environ = self.nextLaneRightLeft
-                         self.carList[0].timeToBorder = self.carList[0].timeToBorder  + 1
+                         self.carList[0].timeToBoundary = self.carList[0].timeToBoundary + 1
                          self.nextLaneRightLeft.addCar(self.carList[0])
                          self.removeCar(self.carList[0])
                          self.carCount = self.carCount - 1
@@ -245,7 +251,7 @@ class StraightLane(object):
             forward depending on the facing of the lane.
         """
         for inCar in self.carList:
-            inCar.timeToBorder = inCar.timeToBorder + 1
+            inCar.timeToBoundary = inCar.timeToBoundary + 1
             if self.direction == 'NORTH':
                 inCar.loc_in_environ[0] = inCar.loc_in_environ[0] - 1
             elif self.direction == 'EAST':
@@ -256,26 +262,27 @@ class StraightLane(object):
                 inCar.loc_in_environ[0] = inCar.loc_in_environ[0] + 1              
                 
     def addCarRandom(self):
-      addmoreCars = True
+      addMoreCars = True
       while self.carCount < self.carLimit and addMoreCars:
-         addMoreCars = np.random.uniform() <= this.carProb
-         if AddMoreCars:
+         a= N.random.uniform()       
+         addMoreCars = a <= self.carProb
+         if addMoreCars:
             if self.direction == "NORTH":
                theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]))
-               theNewCar.chooseTurn(this.probRight, this.probLeft)
-               addCar(theNewCar)           
+               theNewCar.chooseTurn(self.probRight, self.probLeft)
+               self.addCar(theNewCar)           
             elif self.direction == "EAST":
                theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ))
-               theNewCar.chooseTurn(this.probRight, this.probLeft)
-               addCar(theNewCar)
+               theNewCar.chooseTurn(self.probRight, self.probLeft)
+               self.addCar(theNewCar)
             elif self.direction == "SOUTH":
                theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
-               theNewCar.chooseTurn(this.probRight, this.probLeft)
-               addCar(theNewCar)
+               theNewCar.chooseTurn(self.probRight, self.probLeft)
+               self.addCar(theNewCar)
             else:
                theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
-               theNewCar.chooseTurn(this.probRight, this.probLeft)
-               addCar(theNewCar)
+               theNewCar.chooseTurn(self.probRight, self.probLeft)
+               self.addCar(theNewCar)
       
       
      #adding car to the list of cars in the lane   

@@ -44,8 +44,8 @@ class Car(object):
             self.car_turn = 'LEFT'
         elif probTurn <= probRight:
             self.car_turn = 'RIGHT'
-            
-        self.car_turn = 'STRAIGHT'
+        else: 
+            self.car_turn = 'STRAIGHT'
         
     """
     accessor method for the instance variable

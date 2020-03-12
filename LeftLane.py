@@ -99,16 +99,21 @@ class LeftLane(object):
              addMoreCars = np.random.uniform() <= this.carProb
              if AddMoreCars:
                 if self.direction == "NORTH":
-                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )
+                   theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]))
+                   theNewCar.chooseTurn(this.probRight, this.probLeft)
+                   addCar(theNewCar)           
                 elif self.direction == "EAST":
-                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ) )
-
+                   theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ))
+                   theNewCar.chooseTurn(this.probRight, this.probLeft)
+                   addCar(theNewCar)
                 elif self.direction == "SOUTH":
-                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
-
+                   theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
+                   theNewCar.chooseTurn(this.probRight, this.probLeft)
+                   addCar(theNewCar)
                 else:
-                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
-
+                   theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
+                   theNewCar.chooseTurn(this.probRight, this.probLeft)
+                   addCar(theNewCar)
 
     #adding car to the list of cars in the lane   
     def addCar(self,car):

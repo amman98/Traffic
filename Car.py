@@ -18,9 +18,9 @@ class Car(object):
     timeToBoundary: number of time steps
     it takes for a car to reach a boundary
     """
-    def __init__(self, lane, location):
+    def __init__(self, lane, x, y):
        self.environ = lane
-       self.loc_in_environ = location
+       self.loc_in_environ = [y, x]
        self.timeToBoundary=0
     
     """

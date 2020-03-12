@@ -98,62 +98,74 @@ class Model(object):
     Post: Runs the model and plots visualization of the
     cars moving through traffic.
     """
-    def runModel(self):
-
-        length = 42
-        width = 42
-        data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
-
-
-        #- Create figure and axes:
-    
-        fig = plt.figure(figsize=(15,15)) #- sets window size to 5 x 5, returns a figure
-        #ax = fig.add_axes( (0.0, 0.0, 1.0, 1.0), frameon=False )
-        ax = fig.add_axes( (0.2, 0.2, 0.6, 0.6), frameon=False ) #- size of rectangle (left-right, up-down, width, height), returns axes?
-
-        #- draw lanes and intersections here
-        #- boundary of traffic
-        data[:, 0, :] = N.array([0, 1, 0])
-        data[0, :, :] = N.array([0, 1, 0])
-        data[:, -1, :] = N.array([0, 1, 0])
-        data[-1, :, :] = N.array([0, 1, 0])
-        
-        img = ax.imshow(data, interpolation='none',
-                extent=[0, width, 0, length],
-                aspect="auto",
-                zorder=0) #- 5 parameters
-        ax.axis('off') #- Turns off axis labels
-        plt.draw() #- draws the figure, visualization is shown here
-        allCoord = []
-        for i in range (5):
+    def runModel(self, vis = False):
+        if vis:
             
-            plt.pause(1) #- pauses visualization for 2 seconds
+            length = 42
+            width = 42
+            data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+
+
+            #- Create figure and axes:
+
+            fig = plt.figure(figsize=(15,15)) #- sets window size to 5 x 5, returns a figure
+            #ax = fig.add_axes( (0.0, 0.0, 1.0, 1.0), frameon=False )
+            ax = fig.add_axes( (0.2, 0.2, 0.6, 0.6), frameon=False ) #- size of rectangle (left-right, up-down, width, height), returns axes?
+
+            #- draw lanes and intersections here
             #- boundary of traffic
             data[:, 0, :] = N.array([0, 1, 0])
             data[0, :, :] = N.array([0, 1, 0])
             data[:, -1, :] = N.array([0, 1, 0])
             data[-1, :, :] = N.array([0, 1, 0])
-            self.intersectionArray[0][0].moveCars()
-            self.intersectionArray[0][1].moveCars()
-            self.intersectionArray[1][0].moveCars()
-            self.intersectionArray[1][1].moveCars()
-            
-            self.intersectionArray[0][0].addCarsRandom()
-            self.intersectionArray[0][1].addCarsRandom()
-            self.intersectionArray[1][0].addCarsRandom()
-            self.intersectionArray[0][1].addCarsRandom()
-            
-            allCoord = self.intersectionArray[0][0].getAllCoord() + \
-            self.intersectionArray[0][1].getAllCoord() + \
-            self.intersectionArray[1][0].getAllCoord() + \
-            self.intersectionArray[1][1].getAllCoord()
-            for i in range(0, len(allCoord)):
-                data[allCoord[i][0], allCoord[i][1], :] = N.array([0, 0, 1])
-            img.set_data(data) #- changes drawing to add new colors
-            plt.draw() #- draws the figure, visualization is shown here
-            data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
 
-                
+            img = ax.imshow(data, interpolation='none',
+                    extent=[0, width, 0, length],
+                    aspect="auto",
+                    zorder=0) #- 5 parameters
+            ax.axis('off') #- Turns off axis labels
+            plt.draw() #- draws the figure, visualization is shown here
+            allCoord = []
+            for i in range (5):
+
+                plt.pause(1) #- pauses visualization for 2 seconds
+                #- boundary of traffic
+                data[:, 0, :] = N.array([0, 1, 0])
+                data[0, :, :] = N.array([0, 1, 0])
+                data[:, -1, :] = N.array([0, 1, 0])
+                data[-1, :, :] = N.array([0, 1, 0])
+                self.intersectionArray[0][0].moveCars()
+                self.intersectionArray[0][1].moveCars()
+                self.intersectionArray[1][0].moveCars()
+                self.intersectionArray[1][1].moveCars()
+
+                self.intersectionArray[0][0].addCarsRandom()
+                self.intersectionArray[0][1].addCarsRandom()
+                self.intersectionArray[1][0].addCarsRandom()
+                self.intersectionArray[0][1].addCarsRandom()
+
+                allCoord = self.intersectionArray[0][0].getAllCoord() + \
+                self.intersectionArray[0][1].getAllCoord() + \
+                self.intersectionArray[1][0].getAllCoord() + \
+                self.intersectionArray[1][1].getAllCoord()
+                for i in range(0, len(allCoord)):
+                    data[allCoord[i][0], allCoord[i][1], :] = N.array([0, 0, 1])
+                img.set_data(data) #- changes drawing to add new colors
+                plt.draw() #- draws the figure, visualization is shown here
+                data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+
+            else:
+                self.intersectionArray[0][0].moveCars()
+                self.intersectionArray[0][1].moveCars()
+                self.intersectionArray[1][0].moveCars()
+                self.intersectionArray[1][1].moveCars()
+
+                self.intersectionArray[0][0].addCarsRandom()
+                self.intersectionArray[0][1].addCarsRandom()
+                self.intersectionArray[1][0].addCarsRandom()
+                self.intersectionArray[0][1].addCarsRandom()
+                return self.border.carList
+            
                 
                 
             

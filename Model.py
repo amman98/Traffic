@@ -137,6 +137,12 @@ class Model(object):
             self.intersectionArray[0][1].moveCars()
             self.intersectionArray[1][0].moveCars()
             self.intersectionArray[1][1].moveCars()
+            
+            self.intersectionArray[0][0].addCarsRandom()
+            self.intersectionArray[0][1].addCarsRandom()
+            self.intersectionArray[1][0].addCarsRandom()
+            self.intersectionArray[0][1].addCarsRandom()
+            
             allCoord = self.intersectionArray[0][0].getAllCoord() + \
             self.intersectionArray[0][1].getAllCoord() + \
             self.intersectionArray[1][0].getAllCoord() + \

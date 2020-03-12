@@ -3,7 +3,7 @@ import numpy as np
 
 class LeftLane(object):
 
-    def __init__(self, direction, probRight, probLeft, carLimit = 10):
+    def __init__(self, direction, probCar = .2 probRight, probLeft, carLimit = 10):
         
         self.carLimit = carLimit
         self.carCount = 0
@@ -11,6 +11,7 @@ class LeftLane(object):
         self.carList = []
         self.probRight = probRight
         self.probLeft = probLeft
+        self.probCar = probCar
         self.nextLaneFwd = None
         self.nextLaneLeft = None  
     """
@@ -91,7 +92,23 @@ class LeftLane(object):
         #- call helper method to move rest of traffic forward
         if carLeft:
             self.updatePosition(self)
-        
+   
+     def addCarRandom(self):
+          addmoreCars = True
+          while self.carCount < self.carLimit and addMoreCars:
+             addMoreCars = np.random.uniform() <= this.carProb
+             if AddMoreCars:
+                if self.direction == "NORTH":
+                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )
+                elif self.direction == "EAST":
+                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ) )
+
+                elif self.direction == "SOUTH":
+                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
+
+                else:
+                   addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
+
 
     #adding car to the list of cars in the lane   
     def addCar(self,car):

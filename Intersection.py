@@ -36,6 +36,8 @@ class Intersection(object):
         self.y=y
         self.probCarNS=probCarNS
         self.probCarEW=probCarEW
+        self.probRight=probRight
+        self.probLeft=probLeft
         """
         initalize each lane and set its adjcents 
         """
@@ -63,7 +65,10 @@ class Intersection(object):
         self.light=NSgreenLightDur+(NSleftLightDur*2)+EWgreenLightDur
         self.currentLightTime=0
         self.currentLightIndex = 0
-             
+        self.EWgreenLightDur = EWgreenLightDur
+        self.EWleftLightDur = EWleftLightDur
+
+        self.lightOrder = [NSleftLightDur, NSgreenLightDur, EWgreenLightDur, EWleftLightDur]    
       
         """
         This methods calls the moveCars method on all the lanes in the intersection

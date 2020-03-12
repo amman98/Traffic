@@ -22,8 +22,10 @@ class LeftLane(object):
             if i == 0:
                self.carList.append(Car(self, self.startingX, self.startingY))
             else:
-               if self.direction == "NORTH":
-                    theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0])))
+                
+                if self.direction == "NORTH":
+                    
+                    theNewCar = Car(self, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]))
                     theNewCar.chooseTurn(self.probRight, self.probLeft)
                     self.carList.append(theNewCar)
                 elif self.direction == "EAST":
@@ -124,7 +126,10 @@ class LeftLane(object):
     def addCarRandom(self):
           addMoreCars = True
           while self.carCount < self.carLimit and addMoreCars:
-             addMoreCars = np.random.uniform() <= self.probCar
+             if(self.direction == "NORTH" or self.direction=="SOUTH"):
+                 addMoreCars = np.random.uniform() <= self.probCarNS
+             else:
+                addMoreCars = np.random.uniform() <= self.probCarEW
              if addMoreCars:
                 if self.direction == "NORTH":
                     if self.carCount > 0:

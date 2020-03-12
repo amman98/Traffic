@@ -3,7 +3,7 @@ import numpy as np
 
 class LeftLane(object):
 
-    def __init__(self, direction, startingX, startingY,probCarNS = 0.9, probCarEW = .2, probRight = .2, probLeft = .4, carLimit = 10, startingCarCount=3):
+    def __init__(self, direction, startingX=0, startingY=0,probCarNS = 0.9, probCarEW = .2, probRight = .2, probLeft = .4, carLimit = 10, startingCarCount=3):
         
         self.carLimit = carLimit
         self.carCount = 0

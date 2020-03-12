@@ -173,7 +173,7 @@ class Model(object):
 
         else:
             
-            for i in range(1000):
+            for i in range(1800):
                 self.intersectionArray[0][0].moveCars()
                 self.intersectionArray[0][1].moveCars()
                 self.intersectionArray[1][0].moveCars()

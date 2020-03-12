@@ -256,11 +256,9 @@ class StraightLane(object):
                 inCar.loc_in_environ[0] = inCar.loc_in_environ[0] + 1              
                 
     def addCarRandom(self):
-      newCarAmount = (int) np.random.uniform() * self.carLimit
-      i = 0
       addmoreCars = True
       while self.carCount < self.carLimit and addMoreCars:
-         addMoreCars = np.random.uniform() < this.carProb
+         addMoreCars = np.random.uniform() <= this.carProb
          if AddMoreCars:
             if self.direction == "NORTH":
                addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )

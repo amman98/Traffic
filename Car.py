@@ -20,9 +20,11 @@ class Car(object):
     """
     def __init__(self, lane, x, y):
        self.environ = lane
-       self.loc_in_environ[0] = x
-       self.loc_in_environ[1] = y
+       self.loc_in_environ = []
+       self.loc_in_environ.append( y)
+       self.loc_in_environ.append(x)
        self.timeToBoundary=0
+       self.car_turn = "STRAIGHT"
     
     """
     Pre: Car's loc_in_environ and environ attributes
@@ -37,7 +39,7 @@ class Car(object):
     chance the car wants to turn left.
     """
     def chooseTurn(self, probRight, probLeft):
-        probTurn = random.uniform()
+        probTurn = random.uniform(0, 1)
         if probTurn <= probLeft:
             self.car_turn = 'LEFT'
         elif probTurn <= probRight:

@@ -20,7 +20,8 @@ class Car(object):
     """
     def __init__(self, lane, x, y):
        self.environ = lane
-       self.loc_in_environ = [y, x]
+       self.loc_in_environ[0] = x
+       self.loc_in_environ[1] = y
        self.timeToBoundary=0
     
     """

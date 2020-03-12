@@ -14,6 +14,9 @@ class BoundaryLane(object):
     def __init__(self):
         #- list of floats, holds time taken for each car to reach boundary
         self.carTime = []
+        self.carList = []
+        self.carCount = 0
+        self.carLimit = 1000000000000
         
     """
     When a car reaches the boundary of the simulation,
@@ -21,3 +24,11 @@ class BoundaryLane(object):
     """
     def timeToReachBoundary(self, vehicle):
         self.carTime.append(vehicle.getTimeToBoundary(vehicle))
+        
+    def addCar(self,car):
+        self.carList.append(car)
+        self.carCount = self.carCount + 1
+    #method to remove car after it leaves the lane
+    def removeCar(self, car):  
+        self.carList.remove(car)
+        self.carCount = self.carCount - 1 

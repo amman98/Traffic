@@ -51,7 +51,7 @@ class Model(object):
     Also decides which lanes are to the front, left, right
     and adjacent to each lane.
     """
-    def __init__(self, iter = 1000, probCarNS = .9, probCarEW = .4, probLeft = .2, probRight = .4,\
+    def __init__(self, iter = 1000, probCarNS = .9, probCarEW = .4, probLeft = .4, probRight = .2,\
         carLimit = 10, NSleftLightDur = 4, EWleftLightDur = 2, NSgreenLightDur = 10, \
         EWgreenLightDur = 8, startingCarCount = 5):
 

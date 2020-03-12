@@ -53,7 +53,7 @@ class StraightLane(object):
     nextLaneFwdLeft = None 
     nextLaneRightFwd = None           
     nextLaneRightLeft = None
-    def __init__(self, direction, startingX, startingY, probCarNS = .9, probCarEW = .2, probRight = .2, probLeft = .4, carLimit = 10, startingCarCount = startingCarCount):
+    def __init__(self, direction, startingX, startingY, probCarNS = .9, probCarEW = .2, probRight = .2, probLeft = .4, carLimit = 10, startingCarCount = 4):
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction

@@ -60,191 +60,27 @@ class Model(object):
         #self.intersectionArray[0][1] = Intersection()
         #self.intersectionArray[1][0] = Intersection()
         #self.intersectionArray[1][1] = Intersection()
-
-        # First Intersection
         
-        # North Bound Lanes                     
-        # left turn lane                   
-        self.intersectionArray[0][0].northLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][0].northLanes[0].nextLaneLeft = border 
-
-        # straight lane                     
-        self.intersectionArray[0][0].northLanes[1].nextLaneFwd = border 
-        self.intersectionArray[0][0].northLanes[1].nextLaneFwdLeft = border 
-        self.intersectionArray[0][0].northLanes[1].nextLaneRightFwd = border 
-        self.intersectionArray[0][0].northLanes[1].nextLaneRightLeft = border 
-        
-        # East Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[0][0].eastLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][0].eastLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[0][0].eastLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][0].eastLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[0][0].eastLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][0].eastLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # South Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[0][0].southLanes[0].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1] 
-        self.intersectionArray[0][0].southLanes[0].nextLaneLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # straight lane
-        self.intersectionArray[0][0].southLanes[1].nextLaneFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[0][0].southLanes[1].nextLaneFwdLeft = self.intersectionArray[1][0].southLanes[0]
-        self.intersectionArray[0][0].southLanes[1].nextLaneRightFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[0][0].southLanes[1].nextLaneRightLeft = self.intersectionArray[1][0].southLanes[0]
-
-        # West Bound Lanes
-        # left turn lane
-        self.intersectionArray[0][0].westLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][0].westLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[0][0].westLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][0].westLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[0][0].westLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][0].westLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # Second Intersection
-        
-        # North Bound Lanes                     
-        # left turn lane                   
-        self.intersectionArray[0][1].northLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][1].northLanes[0].nextLaneLeft = border 
-
-        # straight lane                     
-        self.intersectionArray[0][1].northLanes[1].nextLaneFwd = border 
-        self.intersectionArray[0][1].northLanes[1].nextLaneFwdLeft = border 
-        self.intersectionArray[0][1].northLanes[1].nextLaneRightFwd = border 
-        self.intersectionArray[0][1].northLanes[1].nextLaneRightLeft = border 
-        
-        # East Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[0][1].eastLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][1].eastLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[0][1].eastLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][1].eastLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[0][1].eastLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][1].eastLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # South Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[0][1].southLanes[0].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1] 
-        self.intersectionArray[0][1].southLanes[0].nextLaneLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # straight lane
-        self.intersectionArray[0][1].southLanes[1].nextLaneFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[0][1].southLanes[1].nextLaneFwdLeft = self.intersectionArray[1][0].southLanes[0]
-        self.intersectionArray[0][1].southLanes[1].nextLaneRightFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[0][1].southLanes[1].nextLaneRightLeft = self.intersectionArray[1][0].southLanes[0]
-
-        # West Bound Lanes
-        # left turn lane
-        self.intersectionArray[0][1].westLanes[0].nextLaneFwd = border 
-        self.intersectionArray[0][1].westLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[0][1].westLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][1].westLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[0][1].westLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[0][1].westLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # Third Intersection
-        
-        # North Bound Lanes                     
-        # left turn lane                   
-        self.intersectionArray[1][0].northLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][0].northLanes[0].nextLaneLeft = border 
-
-        # straight lane                     
-        self.intersectionArray[1][0].northLanes[1].nextLaneFwd = border 
-        self.intersectionArray[1][0].northLanes[1].nextLaneFwdLeft = border 
-        self.intersectionArray[1][0].northLanes[1].nextLaneRightFwd = border 
-        self.intersectionArray[1][0].northLanes[1].nextLaneRightLeft = border 
-        
-        # East Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[1][0].eastLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][0].eastLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[1][0].eastLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][0].eastLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[1][0].eastLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][0].eastLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # South Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[1][0].southLanes[0].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1] 
-        self.intersectionArray[1][0].southLanes[0].nextLaneLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # straight lane
-        self.intersectionArray[1][0].southLanes[1].nextLaneFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[1][0].southLanes[1].nextLaneFwdLeft = self.intersectionArray[1][0].southLanes[0]
-        self.intersectionArray[1][0].southLanes[1].nextLaneRightFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[1][0].southLanes[1].nextLaneRightLeft = self.intersectionArray[1][0].southLanes[0]
-
-        # West Bound Lanes
-        # left turn lane
-        self.intersectionArray[1][0].westLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][0].westLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[1][0].westLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][0].westLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[1][0].westLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][0].westLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # Fourth Intersection
-        
-        # North Bound Lanes                     
-        # left turn lane                   
-        self.intersectionArray[1][1].northLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][1].northLanes[0].nextLaneLeft = border 
-
-        # straight lane                     
-        self.intersectionArray[1][1].northLanes[1].nextLaneFwd = border 
-        self.intersectionArray[1][1].northLanes[1].nextLaneFwdLeft = border 
-        self.intersectionArray[1][1].northLanes[1].nextLaneRightFwd = border 
-        self.intersectionArray[1][1].northLanes[1].nextLaneRightLeft = border 
-        
-        # East Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[1][1].eastLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][1].eastLanes[0].nextLaneLeft = border 
-        
-        # straight lane
-        self.intersectionArray[1][1].eastLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][1].eastLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[1][1].eastLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][1].eastLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # South Bound Lanes                       
-        # left turn lane
-        self.intersectionArray[1][1].southLanes[0].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1] 
-        self.intersectionArray[1][1].southLanes[0].nextLaneLeft = self.intersectionArray[0][1].eastLanes[0]
-        
-        # straight lane
-        self.intersectionArray[1][1].southLanes[1].nextLaneFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[1][1].southLanes[1].nextLaneFwdLeft = self.intersectionArray[1][0].southLanes[0]
-        self.intersectionArray[1][1].southLanes[1].nextLaneRightFwd = self.intersectionArray[1][0].southLanes[1]
-        self.intersectionArray[1][1].southLanes[1].nextLaneRightLeft = self.intersectionArray[1][0].southLanes[0]
-
-        # West Bound Lanes
-        # left turn lane
-        self.intersectionArray[1][1].westLanes[0].nextLaneFwd = border 
-        self.intersectionArray[1][1].westLanes[0].nextLaneLeft = border 
-    
-        # straight lane
-        self.intersectionArray[1][1].westLanes[1].nextLaneFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][1].westLanes[1].nextLaneFwdLeft = self.intersectionArray[0][1].eastLanes[0]
-        self.intersectionArray[1][1].westLanes[1].nextLaneRightFwd = self.intersectionArray[0][1].eastLanes[1]
-        self.intersectionArray[1][1].westLanes[1].nextLaneRightLeft = self.intersectionArray[0][1].eastLanes[0]
-
+        #intersection top left
+        self.intersectionArray[0,0].setAdjacents([border,border,self.intersectionArray[1,0].southLanes[1]\
+                                                 ,self.intersectionArray[1,0].southLanes[0],\
+                                                 self.intersectionArray[0,1].eastLanes[1],\
+                                                 self.intersectionArray[0,1].eastLanes[0],border,border])
+        #intersection top right
+        self.intersectionArray[0,1].setAdjacents([border,border,self.intersectionArray[1,1].southLanes[1],\
+                                                 self.intersectionArray[1,1].southLanes[0],border,border,\
+                                                 self.intersectionArray[0,0].westLanes[1],\
+                                                 self.intersectionArray[0,0].westLanes[1]])
+        #intersection bottom left
+        self.intersectionArray[1,0].setAdjacents([self.intersectionArray[0,0].northLanes[1]\
+                                                 ,self.intersectionArray[0,0].northLanes[1],border,\
+                                                 border,self.intersectionArray[1,1].eastLanes[1],\
+                                                 self.intersectionArray[1,1].eastLanes[0],border,border])
+        #intersection bottom right 
+        self.intersectionArray[1,1].setAdjacents([self.intersectionArray[0,1].northLanes[1],\
+                                                 self.intersectionArray[0,1].northLanes[0],border,\
+                                                 border,border,border,self.intersectionArray[1,0].westLanes[1],\
+                                                 self.intersectionArray[1,0].westLanes[1]])
         
         """
         create four intersection objects and make

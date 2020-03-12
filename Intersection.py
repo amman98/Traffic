@@ -113,7 +113,16 @@ class Intersection(object):
                if self.currentLightIndex == 4:
                   self.currentLightIndex = 0
               
-         
+        def addCarsRandom(self):
+            self.northLanes[0].addCarRandom()
+            self.northLanes[1].addCarRandom()
+            self.eastLanes[0].addCarRandom()
+            self.eastLanes[1].addCarRandom()
+            self.southLanes[0].addCarRandom()
+            self.southLanes[1].addCarRandom()
+            self.westLanes[0].addCarRandom()
+            self.westLanes[1].addCarRandom()
+            
         """
         Method returns a list of tuples representing the coordinates
         of each car that is in this intersection. Each lane calls its

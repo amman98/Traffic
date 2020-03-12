@@ -53,13 +53,14 @@ class StraightLane(object):
     nextLaneFwdLeft = None 
     nextLaneRightFwd = None           
     nextLaneRightLeft = None
-    def __init__(self, direction, probRight = 2, probLeft = 4 carLimit = 10):
+    def __init__(self, direction, probCar = .5, probRight = 2, probLeft = 4 carLimit = 10):
         self.carLimit = carLimit
         self.carCount = 0
         self.direction = direction
         self.carList = []
         self.probRight = probRight
         self.probLeft = probLeft
+        self.carProb = carProb
         for i in range(0, carLimit / 2):
             self.carList.append(Car('LeftLane', 2, 4))
         #self.nextLaneFwd = None
@@ -257,18 +258,20 @@ class StraightLane(object):
     def addCarRandom(self):
       newCarAmount = (int) np.random.uniform() * self.carLimit
       i = 0
-      
-      while i < newCarAmount and self.carCount < self.carLimit:
-         if self.direction == "NORTH":
-            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )
-         elif self.direction == "EAST":
-            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ) )
+      addmoreCars = True
+      while self.carCount < self.carLimit and addMoreCars:
+         addMoreCars = np.random.uniform() < this.carProb
+         if AddMoreCars:
+            if self.direction == "NORTH":
+               addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] + 1 ), (self.carList[-1].loc_in_environ[0]) )
+            elif self.direction == "EAST":
+               addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] - 1 ) )
 
-         elif self.direction == "SOUTH":
-            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
+            elif self.direction == "SOUTH":
+               addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] - 1 ), (self.carList[-1].loc_in_environ[0] ) )
 
-         else:
-            addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
+            else:
+               addCar(newCar(self.probRight, self.probLeft, ( self.carList[-1].loc_in_environ[1] ), (self.carList[-1].loc_in_environ[0] + 1 ) )
    
          
       

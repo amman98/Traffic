@@ -113,16 +113,7 @@ class Intersection(object):
                if self.currentLightIndex == 4:
                   self.currentLightIndex = 0
               
-        def addCarsRandom(self):
-            self.northLanes[0].addCarRandom()
-            self.northLanes[1].addCarRandom()
-            self.eastLanes[0].addCarRandom()
-            self.eastLanes[1].addCarRandom()
-            self.southLanes[0].addCarRandom()
-            self.southLanes[1].addCarRandom()
-            self.westLanes[0].addCarRandom()
-            self.westLanes[1].addCarRandom()
-            
+         
         """
         Method returns a list of tuples representing the coordinates
         of each car that is in this intersection. Each lane calls its
@@ -136,5 +127,80 @@ class Intersection(object):
             self.southLanes[0].getCoord() + self.southLanes[1].getCoord() + \
             self.westLanes[0].getCoord() + self.westLanes[1].getCoord()
             return location
+             """
+      """
+        Method returns a list of tuples representing the coordinates
+        of each car that is in this intersection. Each lane calls its
+        getCoord() method to return a list and then each list is concatenated
+        to create a bigger list that is returned here.
+        """
+    def getAllCoord(self):
+        location = []
+        location = self.northLanes[0].getCoord() + self.northLanes[1].getCoord() + \
+        self.eastLanes[0].getCoord() + self.eastLanes[1].getCoord() + \
+        self.southLanes[0].getCoord() + self.southLanes[1].getCoord() + \
+        self.westLanes[0].getCoord() + self.westLanes[1].getCoord()
+        return location
+    """
+    this method is called by the model to set the
+    adjacent lanes of lanes.
+    outBoundsLanes are lanes tha belong to other intersections
+    they are also the lanes that the cars will go to after they leave 
+    the current intersection
+    """
+    def setAdjacents(self, outBoundLanes):
+        """
+        NORTH
+        """
+        #facing North turning left
+        self.northLanes[0].nextLaneFwd=outBoundLanes[6]
+        self.northLanes[0].nextLaneLeft=outBoundLanes[7]
+        #facing North going straight
+        self.northLanes[1].nextLaneFwd=outBoundLanes[0]
+        self.northLanes[1].nextLaneFwdLeft=outBoundLanes[1]
+        #facing North turning right
+        self.northLanes[1].nextLaneRightFwd=outBoundLanes[4]
+        self.northLanes[1].nextLaneRightLeft=outBoundLanes[5]
+        
+        """
+        SOUTH
+        """
+        #facing south turning left
+        self.southLanes[0].nextLaneFwd=outBoundLanes[4]
+        self.southLanes[0].nextLaneLeft=outBoundLanes[5]
+        #facing south going straight
+        self.southLanes[1].nextLaneFwd=outBoundLanes[2]
+        self.southLanes[1].nextLaneLeft=outBoundLanes[3]
+        #facing south turning right
+        self.southLanes[1].nextLaneRightFwd=outBoundLanes[6]
+        self.southLanes[1].nextLaneRightLeft=outBoundLanes[7]
+        """
+        EAST
+        """
+        #facing east turning left
+        self.eastLanes[0].nextLaneFwd=outBoundLanes[0]
+        self.eastLanes[0].nextLaneLeft=outBoundLanes[1]
+        #facing east going straight
+        self.eastLanes[1].nextLaneFwd=outBoundLanes[4]
+        self.eastLanes[1].nextLaneLeft=outBoundLanes[5]
+        #facing east turning right
+        self.eastLanes[1].nextLaneRightFwd=outBoundLanes[2]
+        self.eastLanes[1].nextLaneRightLeft=outBoundLanes[3]
+        
+        """
+        WEST
+        """
+        
+        #facing west turning left
+        self.westLanes[0].nextLaneFwd=outBoundLanes[2]
+        self.westLanes[0].nextLaneLeft=outBoundLanes[3]
+        #facing west going straight
+        self.westLanes[1].nextLaneFwd=outBoundLanes[6]
+        self.westLanes[1].nextLaneLeft=outBoundLanes[7]
+        #facing west turning right
+        self.westLanes[1].nextLaneRightFwd=outBoundLanes[0]
+        self.westLanes[1].nextLaneRightLeft=outBoundLanes[1]
+        
+           
             
             

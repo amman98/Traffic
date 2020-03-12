@@ -59,19 +59,19 @@ class Model(object):
         self.intersectionArray = N.array((\
         [Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
         carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
-        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount),\
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount,int_number=0,x=14,y=15),\
         
         Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
         carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
-        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount)],\
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount,int_number=1,x=14,y=27)],\
         
         [Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
         carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
-        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount),\
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount,int_number=2,x=36,y=15),\
         
         Intersection(probCarNS = probCarNS, probCarEW = probCarEW, probLeft = probLeft, probRight = probRight,\
         carLimit = carLimit, NSleftLightDur = NSleftLightDur, EWleftLightDur = EWleftLightDur, NSgreenLightDur = NSgreenLightDur, \
-        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount)]))
+        EWgreenLightDur = EWgreenLightDur, startingCarCount = startingCarCount,int_number=3,x=36,y=27)]))
 
         #self.intersectionArray[0][0] = Intersection()
         #self.intersectionArray[0][1] = Intersection()

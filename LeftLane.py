@@ -3,7 +3,7 @@ import numpy as np
 
 class LeftLane(object):
 
-    def __init__(self, direction, probRight = .2, probLeft = .4, probCar = 0.2, carLimit = 10):
+    def __init__(self, direction,startingCarCount=3, fromBound=True,probRight = .2, probLeft = .4, probCar = 0.2, carLimit = 10):
         
         self.carLimit = carLimit
         self.carCount = 0
@@ -13,7 +13,13 @@ class LeftLane(object):
         self.probLeft = probLeft
         self.probCar = probCar
         self.nextLaneFwd = None
-        self.nextLaneLeft = None  
+        self.nextLaneLeft = None
+        #starts from boundary
+        self.fromBound=fromBound
+        
+        self.startingCarCount=startingCarCount
+        #initialize a number of starting cars 
+        #when we start the simulation for this lane
     """
     Helper method for moveCars. After a car has left this lane,
     each car moves forward in traffic.
@@ -94,7 +100,7 @@ class LeftLane(object):
             self.updatePosition()
    
     def addCarRandom(self):
-          addMoreCars = True
+          addMoreCars = self.fromBound
           while self.carCount < self.carLimit and addMoreCars:
              addMoreCars = np.random.uniform() <= self.probCar
              if addMoreCars:
@@ -150,11 +156,4 @@ class LeftLane(object):
             location.append(carLocation)
         return location
                    
-              
-
-
-
-
-
-
-                
+        

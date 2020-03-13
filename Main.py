@@ -1,9 +1,9 @@
-
+ 
 from Model import Model
 
 
 import numpy as np
-import matPlotlib.pyplot as plt
+
 #def mainFunc():
 
 probTurn = [(.2, .4), (.4, .6), (.6, .8), (.8, 1), (.2, .6), (.2, .8), (.2, 1), (.1, .2)]
@@ -42,101 +42,105 @@ carS = 0
 
 avg2 = 0
 carCount2 = 0
-for i in range(1000)
+for i in range(500):
     m = Model()
-    borderCars = m.runModel())
+    borderCars = m.runModel()
     carCount = len(borderCars)
     avg = 0
     for car in borderCars:
         avg = avg + car.timeToBoundary
-        avg = avg / carCount
+    avg = avg / carCount
     default.append((carCount, avg))
     avgT = avgT + default[i][0]
     carT = carT + default[i][1]
-defaultAvg.append((avgT / 1000, carT / 1000)) 
+defaultAvg.append((avgT / 500, carT / 500)) 
+
+print("done")
 
 for turn in probTurn:
-    for i int range(1000)
-        m = Model(probLeft = probTurn[1], probRight = probTurn[0])
-        borderCars = m.runModel())
+    for i in range(500):
+        m = Model(probLeft = turn[1], probRight = turn[0])
+        borderCars = m.runModel()
         carCount = len(borderCars)
         avg = 0
         for car in borderCars:
             avg = avg + car.timeToBoundary
-            avg = avg / carCount
+        avg = avg / carCount
         changeTurnProb.append((carCount, avg))
         avgT = avgT + changeTurnProb[i][0]
         carT = carT + changeTurnProb[i][1]
-    changeTurnProbAvg.append((avgT / 1000, carT / 1000))   
+    changeTurnProbAvg.append((avgT / 500, carT / 500))   
 
-    
+print("done2") 
 avgT = 0
 carT = 0
-for spawn in carSpawns:
-    m = Model(probCarNS = spawn[1], probCarEW = spawn[0])
-    borderCars = m.runModel())
+for spawn in carSpawn:
+    for i in range(500):
+        m = Model(probCarNS = spawn[1], probCarEW = spawn[0])
+        borderCars = m.runModel()
         carCount = len(borderCars)
         avg = 0
         for car in borderCars:
             avg = avg + car.timeToBoundary
-            avg = avg / carCount
+        avg = avg / carCount
         changeCarSpawn.append((carCount, avg))
         avgT = avgT + changeCarSpawn[i][0]
         carT = carT + changeCarSpawn[i][1]
-    changeCarSpawnAvg.append((avgT / 1000, carT / 1000))  
+    changeCarSpawnAvg.append((avgT / 500, carT / 500))  
      
 avgT = 0
 carT = 0
+print("done3")
 for green in greenLightDur:
-    m = Model(NSgreenLightDur = green[0], EWgreenLightDur = green[1])
-    borderCars = m.runModel())
+    for i in range(500):
+        m = Model(NSgreenLightDur = green[0], EWgreenLightDur = green[1])
+        borderCars = m.runModel()
         carCount = len(borderCars)
         avg = 0
         for car in borderCars:
             avg = avg + car.timeToBoundary
-            avg = avg / carCount
+        avg = avg / carCount
         changeGreenLight.append((carCount, avg))
         avgT = avgT + changeGreenLight[i][0]
         carT = carT + changeGreenLight[i][1]
-    changeGreenLightAvg.append((avgT / 1000, carT / 1000)) 
+    changeGreenLightAvg.append((avgT / 500, carT / 500)) 
     
 avgT = 0
 carT = 0 
+print("done4")
 for left in leftLightDur:
-    m = Model(NSleftLightDur = left[0], EWleftLightDur = left[1])
-    borderCars = m.runModel())
+    for i in range(500):
+        m = Model(NSleftLightDur = left[0], EWleftLightDur = left[1])
+        borderCars = m.runModel()
         carCount = len(borderCars)
         avg = 0
         for car in borderCars:
             avg = avg + car.timeToBoundary
-            avg = avg / carCount
+        avg = avg / carCount
         changeLeftLight.append((carCount, avg))
         avgT = avgT + changeLeftLight[i][0]
         carT = carT + changeLeftLight[i][1]
-    changeLeftLightAvg.append((avgT / 1000, carT / 1000)) 
+    changeLeftLightAvg.append((avgT / 500, carT / 500)) 
     
 avgT = 0
-carT = 0        
+carT = 0    
+print("done5")    
 for start in startingCarCount:
-    m = Model(startingCarCount = start)
-    borderCars = m.runModel())
+    for i in range(1000):
+        m = Model(startingCarCount = start)
+        borderCars = m.runModel()
         carCount = len(borderCars)
         avg = 0
         for car in borderCars:
             avg = avg + car.timeToBoundary
-            avg = avg / carCount
+        avg = avg / carCount
         changeStartingCars.append((carCount, avg))
         avgT = avgT + changeStartingCars[i][0]
         carT = carT + changeStartingCars[i][1]
-    changeStartingCarsAvg.append((avgT / 1000, carT / 1000)) 
-
+    changeStartingCarsAvg.append((avgT / 500, carT / 500)) 
+print("done6")
     
-    defaultAvg = []
-changeTurnProbAvg = []
-changeCarSpawnAvg = []
-changeGreenLightAvg = []
-changeLeftLightAvg = []
-changeStartingCarsAvg = []
+
 print("defaultAvg: ", defaultAvg)
 print("changeTurn: ", changeTurnProbAvg)
 print("spawn: ", changeCarSpawnAvg)

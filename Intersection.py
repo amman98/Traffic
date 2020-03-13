@@ -12,7 +12,7 @@ from LeftLane import LeftLane
 
 class Intersection(object):
    
-    def __init__(self, leftFirst = True, probCarNS = .9, probCarEW = .2, probLeft = .2, probRight = .4,\
+    def __init__(self, leftFirst = True, probCarNS = .9, probCarEW = .2, probLeft = .4, probRight = .2,\
         carLimit = 15, NSleftLightDur = 5, EWleftLightDur = 2, NSgreenLightDur = 8, \
         EWgreenLightDur = 4, startingCarCount = 5, int_number=0,x=0,y=0):
     
@@ -62,7 +62,6 @@ class Intersection(object):
         its NSgreenLight, EWLightDur, and 2 times the left because there are 
         2 different types of left turns (NS left turns and EW left turns)
         """
-        self.light=NSgreenLightDur+(NSleftLightDur*2)+EWgreenLightDur
         self.currentLightTime=0
         self.currentLightIndex = 0
         self.EWgreenLightDur = EWgreenLightDur
@@ -180,7 +179,7 @@ class Intersection(object):
         self.southLanes[0].nextLaneLeft=outBoundLanes[5]
         #facing south going straight
         self.southLanes[1].nextLaneFwd=outBoundLanes[2]
-        self.southLanes[1].nextLaneLeft=outBoundLanes[3]
+        self.southLanes[1].nextLaneFwdLeft=outBoundLanes[3]
         #facing south turning right
         self.southLanes[1].nextLaneRightFwd=outBoundLanes[6]
         self.southLanes[1].nextLaneRightLeft=outBoundLanes[7]
@@ -192,7 +191,7 @@ class Intersection(object):
         self.eastLanes[0].nextLaneLeft=outBoundLanes[1]
         #facing east going straight
         self.eastLanes[1].nextLaneFwd=outBoundLanes[4]
-        self.eastLanes[1].nextLaneLeft=outBoundLanes[5]
+        self.eastLanes[1].nextLaneFwdLeft=outBoundLanes[5]
         #facing east turning right
         self.eastLanes[1].nextLaneRightFwd=outBoundLanes[2]
         self.eastLanes[1].nextLaneRightLeft=outBoundLanes[3]
@@ -206,11 +205,10 @@ class Intersection(object):
         self.westLanes[0].nextLaneLeft=outBoundLanes[3]
         #facing west going straight
         self.westLanes[1].nextLaneFwd=outBoundLanes[6]
-        self.westLanes[1].nextLaneLeft=outBoundLanes[7]
+        self.westLanes[1].nextLaneFwdLeft=outBoundLanes[7]
         #facing west turning right
         self.westLanes[1].nextLaneRightFwd=outBoundLanes[0]
         self.westLanes[1].nextLaneRightLeft=outBoundLanes[1]
         
-           
-            
+      
             

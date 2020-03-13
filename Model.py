@@ -14,7 +14,10 @@ import matplotlib.pyplot as plt
 class Model(object):
     
     #- Global Variables
-    
+    length = 50
+    width = 42
+    data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+
     """
     probCar: float that determines probability of how many cars will be on road, 
     used to simulate how congested traffic can be at different times of
@@ -112,6 +115,35 @@ class Model(object):
         """
         self.timeWithinBoundary = []
 
+        
+    """
+    helper method for runModel(), draws a single intersection
+    at a position on the grid specified by the row and column
+    parameters.
+    """
+    def visualizeIntersection(self, row, col):
+        #- draw lanes and intersections here
+        #- boundary of traffic
+        self.data[:, 0, :] = N.array([0, 1, 0])
+        self.data[0, :, :] = N.array([0, 1, 0])
+        self.data[:, -1, :] = N.array([0, 1, 0])
+        self.data[-1, :, :] = N.array([0, 1, 0])
+        # backwards L (half of lane)
+        self.data[2+row: 12+row, 7+col, :] = N.array([1, 0, 0]) # 1
+        self.data[11+row, 2+col:7+col, :] = N.array([1, 0, 0]) # 2
+        
+        # forwards L (half of lane)
+        self.data[2+row: 12+row, 12+col, :] = N.array([1, 0, 0]) # 3
+        self.data[11+row, 12+col:17+col, :] = N.array([1, 0, 0]) # 4
+        
+        # reflected forwards L
+        self.data[17+row: 27+row, 12+col, :] = N.array([1, 0, 0]) # 5
+        self.data[17+row, 12+col:17+col, :] = N.array([1, 0, 0]) # 6
+        
+        #reflected backwards L
+        self.data[17+row: 27+row, 7+col, :] = N.array([1, 0, 0]) # 7
+        self.data[17+row, 2+col:7+col, :] = N.array([1, 0, 0]) # 8
+    
     
     """
     Pre: Have initialized each lane and car object.
@@ -121,11 +153,6 @@ class Model(object):
     """
     def runModel(self, vis = False):
         if vis:
-            
-            length = 42
-            width = 42
-            data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
-
 
             #- Create figure and axes:
 
@@ -135,13 +162,13 @@ class Model(object):
 
             #- draw lanes and intersections here
             #- boundary of traffic
-            data[:, 0, :] = N.array([0, 1, 0])
-            data[0, :, :] = N.array([0, 1, 0])
-            data[:, -1, :] = N.array([0, 1, 0])
-            data[-1, :, :] = N.array([0, 1, 0])
+            self.data[:, 0, :] = N.array([0, 1, 0])
+            self.data[0, :, :] = N.array([0, 1, 0])
+            self.data[:, -1, :] = N.array([0, 1, 0])
+            self.data[-1, :, :] = N.array([0, 1, 0])
 
-            img = ax.imshow(data, interpolation='none',
-                    extent=[0, width, 0, length],
+            img = ax.imshow(self.data, interpolation='none',
+                    extent=[0, self.width, 0, self.length],
                     aspect="auto",
                     zorder=0) #- 5 parameters
             ax.axis('off') #- Turns off axis labels
@@ -151,10 +178,10 @@ class Model(object):
 
                 plt.pause(1) #- pauses visualization for 2 seconds
                 #- boundary of traffic
-                data[:, 0, :] = N.array([0, 1, 0])
-                data[0, :, :] = N.array([0, 1, 0])
-                data[:, -1, :] = N.array([0, 1, 0])
-                data[-1, :, :] = N.array([0, 1, 0])
+                self.data[:, 0, :] = N.array([0, 1, 0])
+                self.data[0, :, :] = N.array([0, 1, 0])
+                self.data[:, -1, :] = N.array([0, 1, 0])
+                self.data[-1, :, :] = N.array([0, 1, 0])
                 self.intersectionArray[0][0].moveCars()
                 self.intersectionArray[0][1].moveCars()
                 self.intersectionArray[1][0].moveCars()
@@ -170,10 +197,10 @@ class Model(object):
                 self.intersectionArray[1][0].getAllCoord() + \
                 self.intersectionArray[1][1].getAllCoord()
                 for i in range(0, len(allCoord)):
-                    data[allCoord[i][0], allCoord[i][1], :] = N.array([0, 0, 1])
-                img.set_data(data) #- changes drawing to add new colors
+                    self.data[allCoord[i][0], allCoord[i][1], :] = N.array([0, 0, 1])
+                img.set_data(self.data) #- changes drawing to add new colors
                 plt.draw() #- draws the figure, visualization is shown here
-                data = N.ones((length, width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
+                self.data = N.ones((self.length, self.width, 3), dtype='f')*0.8 #- array of shape 42, 42, 3, all values are 0.8
 
         else:
             

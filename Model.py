@@ -174,7 +174,7 @@ class Model(object):
             ax.axis('off') #- Turns off axis labels
             plt.draw() #- draws the figure, visualization is shown here
             allCoord = []
-            for i in range (50):
+            for i in range (300):
 
                 plt.pause(1) #- pauses visualization for 2 seconds
                 #- boundary of traffic
